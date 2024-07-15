@@ -1,0 +1,6 @@
+{
+    "name": "Adafruit nRFCrypto",
+    "build": {
+        "extraScript": "extra_script.py"
+    }
+}

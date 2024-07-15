@@ -1,0 +1,16 @@
+{
+  "name": "Heltec LoRa",
+  "keywords": "heltec,  lora, ble , nrf",
+  "description": "A library for Heltec nrf  based board",
+  "repository":{
+    "type": "git",
+    "url": "https://github.com/HelTecAutomation/"
+  },
+  "authors":{
+        "name": "Heltec Automation(TM)",
+        "email": "support@heltec.cn"
+   },
+  "version": "1.1.2",
+  "frameworks": "arduino",
+  "platforms": "nrf52"
+}

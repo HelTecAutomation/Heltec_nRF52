@@ -1,0 +1,14 @@
+tools/CMSIS
+tools/dist
+tools/gcc-arm-none-eabi
+tools/nrfjprog
+
+# Ignore editor backup files and macOS system metadata
+.DS_Store
+.*.swp
+.*.swo
+*~
+ 
+# Ignore files built by Visual Studio/Visual Micro
+*.vcxproj*
+.vscode/
