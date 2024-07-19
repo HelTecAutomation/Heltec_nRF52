@@ -7,7 +7,7 @@ menu.lora_debug_port=LoRa Debug Port
 # -----------------------------------
 #HT-n5262
 # -----------------------------------
-HT-n5262.name=HT-n5262
+HT-n5262.name=Mesh Node T114(HT-n5262)
 
 # VID/PID for Bootloader, Arduino & CircuitPython
 HT-n5262.vid.0=0x239A

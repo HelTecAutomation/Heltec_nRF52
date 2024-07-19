@@ -110,7 +110,7 @@ recipe.objcopy.hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf
 recipe.objcopy.zip.pattern="{tools.nrfutil.cmd}" dfu genpkg --dev-type 0x0052 --sd-req {build.sd_fwid} --application "{build.path}/{build.project_name}.hex" "{build.path}/{build.project_name}.zip"
 
 ## Create uf2 file
-#recipe.objcopy.uf2.pattern=python "{runtime.platform.path}/tools/uf2conv/uf2conv.py" -f 0xADA52840 -c -o "{build.path}/{build.project_name}.uf2" "{build.path}/{build.project_name}.hex"
+recipe.objcopy.uf2.pattern="{tools.uf2conv.cmd}" -f 0xADA52840 -c -o "{build.path}/{build.project_name}.uf2" "{build.path}/{build.project_name}.hex"
 
 ## Save bin
 recipe.output.tmp_file_bin={build.project_name}.bin
@@ -134,6 +134,10 @@ recipe.output.save_file={build.project_name}.{build.variant}.hex
 # https://github.com/adafruit/Adafruit_nRF52_nrfutil
 # pre-built binaries are provided for macos and windows
 # ------------------------------------------------
+tools.uf2conv.cmd=python {runtime.platform.path}/tools/uf2conv/uf2conv.py
+tools.uf2conv.cmd.windows={runtime.platform.path}/tools/uf2conv/uf2conv.exe
+tools.uf2conv.cmd.macosx=python {runtime.platform.path}/tools/uf2conv/uf2conv.py
+
 tools.nrfutil.cmd=adafruit-nrfutil
 tools.nrfutil.cmd.windows={runtime.platform.path}/tools/adafruit-nrfutil/win32/adafruit-nrfutil.exe
 tools.nrfutil.cmd.macosx={runtime.platform.path}/tools/adafruit-nrfutil/macos/adafruit-nrfutil

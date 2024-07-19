@@ -52,12 +52,30 @@ def mkdir_p(path):
         if exc.errno != errno.EEXIST or not os.path.isdir(path):
             raise
 
+def format_size(bytes):
+    try:
+        bytes = float(bytes)
+        kb = bytes / 1024
+    except:
+        return "Error"
+    if kb >= 1024:
+        M = kb / 1024
+        if M >= 1024:
+            G = M / 1024
+            return "%.2fG" % (G)
+        else:
+            return "%.2fM" % (M)
+    else:
+        return "%.2fK" % (kb)
+
+
 def report_progress(count, blockSize, totalSize):
     if sys.stdout.isatty():
         if totalSize > 0:
             percent = int(count*blockSize*100/totalSize)
             percent = min(100, percent)
-            sys.stdout.write("\r%d%%" % percent)
+            totalsize_str = " totalsize: %s" % format_size(totalSize)
+            sys.stdout.write("\r%d%%" % percent+totalsize_str)
         else:
             sofar = (count*blockSize) / 1024
             if sofar >= 1000:
@@ -162,6 +180,7 @@ def get_tool(tool):
             ctx.verify_mode = ssl.CERT_NONE
             urlretrieve(url, local_path, report_progress, context=ctx)
         elif 'Windows' in sys_name:
+            urlretrieve(url, local_path, report_progress,)
             r = requests.get(url)
             f = open(local_path, 'wb')
             f.write(r.content)
@@ -231,6 +250,8 @@ def main():
     print('Platform: {0}'.format(identified_platform))
     tools_to_download = load_tools_list(current_dir + '/../package/package_index.template.json', identified_platform)
     mkdir_p(dist_dir)
+    shutil.copy("platform_git.txt","../platform.txt");
+    shutil.copy("programmers_git.txt","../programmers.txt");
     for tool in tools_to_download:
         if is_test:
             print('Would install: {0}'.format(tool['archiveFileName']))

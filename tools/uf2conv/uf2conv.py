@@ -288,5 +288,5 @@ def main():
             write_file(d + "/NEW.UF2", outbuf)
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    sys.exit(main())
