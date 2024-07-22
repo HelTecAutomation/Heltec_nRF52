@@ -8,10 +8,10 @@
       "websiteURL": "https://github.com/HelTecAutomation/Heltec_nRF52", 
       "platforms": [
         {
-          "name": "Heltec nRF52",
-          "architecture": "nrf52",
+          "name": "Heltec nRF52 boards",
+          "architecture": "Heltec_nRF52",
           "version": "1.6.0",
-          "category": "Heltec nRF52",
+          "category": "Heltec_nRF52",
           "url": "https://resource.heltec.cn/download/Heltec_nRF52_1.6.0.zip",
           "archiveFileName": "Heltec_nRF52_1.6.0.zip",
           "checksum": "SHA-256:70fc4d7923e392a34f6ed4a24f0783660f29fe5817dc50f070a5065b3632e58f",
@@ -23,17 +23,17 @@
           ],
           "toolsDependencies": [
             {
-              "packager": "adafruit",
+              "packager": "Heltec_nRF52",
               "name": "arm-none-eabi-gcc",
               "version": "9-2019q4"
             },
             {
-              "packager": "adafruit",
+              "packager": "Heltec_nRF52",
               "name": "nrfjprog",
               "version": "9.4.0"
             },
             {
-              "packager": "adafruit",
+              "packager": "Heltec_nRF52",
               "name": "CMSIS",
               "version": "5.7.0"
             },
@@ -199,7 +199,7 @@
         }
       ], 
       "email": "support@heltec.cn", 
-      "name": "CubeCell"
+      "name": "Heltec_nRF52"
     }
   ]
 }
