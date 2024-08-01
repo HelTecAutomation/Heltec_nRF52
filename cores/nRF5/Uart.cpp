@@ -153,6 +153,8 @@ void Uart::begin(unsigned long baudrate, uint16_t config)
 
 void Uart::end()
 {
+  if(!_begun)
+    return;
   NVIC_DisableIRQ(IRQn);
 
   nrfUart->INTENCLR = UARTE_INTENSET_ENDRX_Msk | UARTE_INTENSET_ENDTX_Msk;
