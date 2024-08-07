@@ -117,7 +117,7 @@ static const uint8_t MISO = PIN_SPI_MISO ;
 static const uint8_t SCK  = PIN_SPI_SCK ;
 
 // SPI1
-#define PIN_SPI1_MISO         (-1)
+#define PIN_SPI1_MISO         (43)
 #define PIN_SPI1_MOSI         (41)
 #define PIN_SPI1_SCK          (40)
 
