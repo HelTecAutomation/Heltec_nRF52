@@ -39,7 +39,7 @@ Maintainer: Miguel Luis ( Semtech ), Gregory Cristian ( Semtech ) and Daniel Jae
 #define REGION_AU915
 #define REGION_US915
 #define REGION_CN470
-//#define REGION_EU433
+#define REGION_EU433
 #define REGION_EU868
 #define REGION_US915
 #define REGION_KR920
