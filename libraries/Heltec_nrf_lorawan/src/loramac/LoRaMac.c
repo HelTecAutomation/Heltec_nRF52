@@ -204,7 +204,7 @@ bool IsLoRaMacNetworkJoined = false;
 /*!
  * LoRaMac ADR control status
  */
- bool AdrCtrlOn = false;
+ bool AdrCtrlOn = true;
 
 /*!
  * Counts the number of missed ADR acknowledgements
