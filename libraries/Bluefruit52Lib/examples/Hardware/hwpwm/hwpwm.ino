@@ -37,16 +37,16 @@ void setup()
   HwPWM0.addPin( LED_RED );
 
   // Add LED BLUE to PWM1
-  HwPWM1.addPin( LED_BLUE );
+  // HwPWM1.addPin( LED_BLUE );
 
   // Enable PWM modules with 15-bit resolutions(max) but different clock div
   HwPWM0.begin();
   HwPWM0.setResolution(15);
   HwPWM0.setClockDiv(PWM_PRESCALER_PRESCALER_DIV_1); // freq = 16Mhz
   
-  HwPWM1.begin();
-  HwPWM1.setResolution(15);
-  HwPWM1.setClockDiv(PWM_PRESCALER_PRESCALER_DIV_16); // freq = 1Mhz
+  // HwPWM1.begin();
+  // HwPWM1.setResolution(15);
+  // HwPWM1.setClockDiv(PWM_PRESCALER_PRESCALER_DIV_16); // freq = 1Mhz
 }
 
 /**************************************************************************/
@@ -63,7 +63,7 @@ void loop()
   {
     // Write same value but inverted for Led Blue
     HwPWM0.writePin(LED_RED, fadeValue, false);
-    HwPWM1.writePin(LED_BLUE, fadeValue, true);
+    // HwPWM1.writePin(LED_BLUE, fadeValue, true);
         
     // wait for 30 milliseconds to see the dimming effect
     delay(30);
@@ -74,7 +74,7 @@ void loop()
   {  
     // Write same value but inverted for Led Blue
     HwPWM0.writePin(LED_RED, fadeValue, false);
-    HwPWM1.writePin(LED_BLUE, fadeValue, true);
+    // HwPWM1.writePin(LED_BLUE, fadeValue, true);
     
     // wait for 30 milliseconds to see the dimming effect
     delay(30);
