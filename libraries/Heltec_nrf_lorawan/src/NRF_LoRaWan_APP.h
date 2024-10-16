@@ -105,6 +105,8 @@ extern "C" void downLinkDataHandle(McpsIndication_t *mcpsIndication);
 extern "C" void lwan_dev_params_update( void );
 extern "C" void dev_time_updated( void );
 extern "C" void print_Hex(uint8_t *para,uint8_t size);
+extern "C" float getHardwareVersion();
+extern "C" void setHardwareVersion(float hard_ver);
 extern String channeltoString();
 
 /*

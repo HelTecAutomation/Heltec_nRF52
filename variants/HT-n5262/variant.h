@@ -34,7 +34,9 @@
 extern "C"
 {
 #endif // __cplusplus
-
+#define HARD_VERSION_ADDR    (0xED000+7*4096-16-4) 
+#define HT_LICENSE_ADDR      (0xED000+7*4096-16) 
+#define HT_LICENSE_ADDR_BASE (0xED000+6*4096) 
 // Number of pins defined in PinDescription array
 #define PINS_COUNT           (48)
 #define NUM_DIGITAL_PINS     (48)

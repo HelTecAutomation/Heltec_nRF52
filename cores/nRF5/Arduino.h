@@ -16,7 +16,7 @@ typedef uint16_t word;
 
 #include "avr/pgmspace.h"
 #include "avr/interrupt.h"
-
+#include "variant.h"
 #include "itoa.h"
 
 #ifdef __cplusplus
