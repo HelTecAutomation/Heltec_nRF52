@@ -734,35 +734,25 @@ void LoRaWanClass::setDefaultDR(int8_t dataRate)
 	defaultDrForNoAdr = dataRate;
 }
 
-float getHardwareVersion()
+uint8_t getHardwareVersion()
 {
-  float hard_ver;
+  uint8_t hard_ver;
   
-  flash_nrf5x_read((uint8_t *)&hard_ver,HARD_VERSION_ADDR,4);
-  uint8_t data_temp[4];
-  uint8_t *p=(uint8_t *)&hard_ver;
-  data_temp[0]=*p++;
-  data_temp[1]=*p++;
-  data_temp[2]=*p++;
-  data_temp[3]=*p++;
-  if(data_temp[0]==0XFF&&data_temp[1]==0XFF&&data_temp[2]==0XFF&&data_temp[3]==0XFF)
+  flash_nrf5x_read(&hard_ver,HARD_VERSION_ADDR,1);
+  if(hard_ver==0XFF)
   {
-    return 0;
+    hard_ver=0;
   }
   return hard_ver;
 }
 
-void setHardwareVersion(float hard_ver)
+void setHardwareVersion(uint8_t hard_ver)
 {
-  uint8_t data_temp[20];
-  uint8_t *p=(uint8_t *)&hard_ver;
-  data_temp[0]=*p++;
-  data_temp[1]=*p++;
-  data_temp[2]=*p++;
-  data_temp[3]=*p++;
-  flash_nrf5x_read(&data_temp[4],HT_LICENSE_ADDR,16);
+  uint8_t data_temp[17];
+  data_temp[0]=hard_ver;
+  flash_nrf5x_read(&data_temp[1],HT_LICENSE_ADDR,16);
   flash_nrf5x_erase(HT_LICENSE_ADDR_BASE);
-  flash_nrf5x_write(HARD_VERSION_ADDR,(uint8_t *)data_temp,20);
+  flash_nrf5x_write(HARD_VERSION_ADDR,(uint8_t *)data_temp,17);
   flash_nrf5x_flush();
 }
 LoRaWanClass LoRaWAN;
