@@ -31,7 +31,7 @@
 #define LFS_FLASH_ADDR        0x6D000
 #endif
 
-#define LFS_FLASH_TOTAL_SIZE  (7*FLASH_NRF52_PAGE_SIZE)
+#define LFS_FLASH_TOTAL_SIZE  (6*FLASH_NRF52_PAGE_SIZE)
 #define LFS_BLOCK_SIZE        128
 
 //--------------------------------------------------------------------+
