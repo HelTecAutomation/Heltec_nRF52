@@ -12,9 +12,9 @@
           "architecture": "Heltec_nRF52",
           "version": "1.7.0",
           "category": "Heltec_nRF52",
-          "url": "https://resource.heltec.cn/download/nRF_Arduino/Heltec_nRF52-1.7.0.zip",
+          "url": "https://resource.heltec.cn/download/nRF_Arduino/Heltec_nRF52_1.7.0.zip",
           "archiveFileName": "Heltec_nRF52_1.7.0.zip",
-          "checksum": "SHA-256:70fc4d7923e392a34f6ed4a24f0783660f29fe5817dc50f070a5065b3632e58f",
+          "checksum": "SHA-256:905AEC2D65F9B0D026346F487C2B9FE923DEECCC9B9857651A62F5399E313AD2",
           "size": "334095104",
           "boards": [
             {
