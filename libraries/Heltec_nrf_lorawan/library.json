@@ -1,7 +1,7 @@
 {
-  "name": "Heltec LoRa",
-  "keywords": "heltec,  lora, ble , nrf",
-  "description": "A library for Heltec nrf  based board",
+  "name": "Heltec",
+  "keywords": "heltec, lora, ble , nrf",
+  "description": "A library for Heltec nrf based board",
   "repository":{
     "type": "git",
     "url": "https://github.com/HelTecAutomation/"
