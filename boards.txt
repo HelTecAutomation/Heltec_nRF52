@@ -5,6 +5,85 @@ menu.RGB=LoRa State RGB
 menu.LoRa_debug=LoRa Debug Enable
 menu.lora_debug_port=LoRa Debug Port
 # -----------------------------------
+#HT-n5262-e213
+# -----------------------------------
+HT-n5262-e213.name=Mesh Pocket
+
+# VID/PID for Bootloader, Arduino & CircuitPython
+HT-n5262-e213.vid.0=0x239A
+HT-n5262-e213.pid.0=0x8071
+HT-n5262-e213.vid.1=0x239A
+HT-n5262-e213.pid.1=0x0071
+HT-n5262-e213.vid.2=0x239A
+HT-n5262-e213.pid.2=0x8072
+
+# Upload
+HT-n5262-e213.bootloader.tool=bootburn
+HT-n5262-e213.upload.tool=nrfutil
+HT-n5262-e213.upload.protocol=nrfutil
+HT-n5262-e213.upload.use_1200bps_touch=true
+HT-n5262-e213.upload.wait_for_upload_port=true
+HT-n5262-e213.upload.maximum_size=815104
+HT-n5262-e213.upload.maximum_data_size=237568
+
+# Build
+HT-n5262-e213.build.mcu=cortex-m4
+HT-n5262-e213.build.f_cpu=64000000
+HT-n5262-e213.build.board=HT_N5262
+HT-n5262-e213.build.core=nRF5
+HT-n5262-e213.build.variant=HT-n5262-e213
+HT-n5262-e213.build.usb_manufacturer="Heltec"
+HT-n5262-e213.build.usb_product="HT-n5262-e213"
+HT-n5262-e213.build.extra_flags=-DNRF52840_XXAA {build.flags.usb}
+HT-n5262-e213.build.ldscript=nrf52840_s140_v6.ld
+HT-n5262-e213.build.openocdscript=scripts/openocd/daplink_nrf52.cfg
+HT-n5262-e213.build.vid=0x239A
+HT-n5262-e213.build.pid=0x8071
+
+# Menu: SoftDevice
+HT-n5262-e213.menu.softdevice.s140v6=S140 6.1.1
+HT-n5262-e213.menu.softdevice.s140v6.build.sd_name=s140
+HT-n5262-e213.menu.softdevice.s140v6.build.sd_version=6.1.1
+HT-n5262-e213.menu.softdevice.s140v6.build.sd_fwid=0x00B6
+
+# Menu: Debug Level
+#HT-n5262-e213.menu.debug.l0=Level 0 (Release)
+#HT-n5262-e213.menu.debug.l0.build.debug_flags=-DCFG_DEBUG=0
+#HT-n5262-e213.menu.debug.l1=Level 1 (Error Message)
+#HT-n5262-e213.menu.debug.l1.build.debug_flags=-DCFG_DEBUG=1
+#HT-n5262-e213.menu.debug.l2=Level 2 (Full Debug)
+#HT-n5262-e213.menu.debug.l2.build.debug_flags=-DCFG_DEBUG=2
+#HT-n5262-e213.menu.debug.l3=Level 3 (Segger SystemView)
+#HT-n5262-e213.menu.debug.l3.build.debug_flags=-DCFG_DEBUG=3
+#HT-n5262-e213.menu.debug.l3.build.sysview_flags=-DCFG_SYSVIEW=1
+
+# Menu: Debug Port
+#HT-n5262-e213.menu.debug_output.serial=Serial
+#HT-n5262-e213.menu.debug_output.serial.build.logger_flags=-DCFG_LOGGER=0
+#HT-n5262-e213.menu.debug_output.serial1=Serial1
+#HT-n5262-e213.menu.debug_output.serial1.build.logger_flags=-DCFG_LOGGER=1 -DCFG_TUSB_DEBUG=CFG_DEBUG
+#HT-n5262-e213.menu.debug_output.rtt=Segger RTT
+#HT-n5262-e213.menu.debug_output.rtt.build.logger_flags=-DCFG_LOGGER=2 -DCFG_TUSB_DEBUG=CFG_DEBUG -DSEGGER_RTT_MODE_DEFAULT=SEGGER_RTT_MODE_BLOCK_IF_FIFO_FULL
+
+HT-n5262-e213.menu.RGB.enable=Enable
+HT-n5262-e213.menu.RGB.enable.build.rgb_enable=1
+HT-n5262-e213.menu.RGB.disable=Disable
+HT-n5262-e213.menu.RGB.disable.build.rgb_enable=0
+
+HT-n5262-e213.menu.LoRa_debug.enable=Enable
+HT-n5262-e213.menu.LoRa_debug.enable.build.LoRa_debug=1
+HT-n5262-e213.menu.LoRa_debug.disable=Disable
+HT-n5262-e213.menu.LoRa_debug.disable.build.LoRa_debug=0
+
+HT-n5262-e213.menu.lora_debug_port.serial=Serial(USB CDC)
+HT-n5262-e213.menu.lora_debug_port.serial.build.lora_debug=0
+HT-n5262-e213.menu.lora_debug_port.serial1=Serial1(UART0)
+HT-n5262-e213.menu.lora_debug_port.serial1.build.lora_debug=1
+
+HT-n5262-e213.build.defines=-DLoraWan_RGB={build.rgb_enable} -DLORA_DEBUG_SERIAL_NUM={build.lora_debug} -DLORA_DEBUG_ENABLE={build.LoRa_debug} -DHT_N5262_E213
+HT-n5262-e213.build.debug_flags=-DCFG_DEBUG=0
+
+# -----------------------------------
 #HT-n5262
 # -----------------------------------
 HT-n5262.name=Mesh Node T114(HT-n5262)

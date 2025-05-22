@@ -42,6 +42,15 @@
 
 #define BOARD_TCXO_WAKEUP_TIME                      3
 
+
+#ifdef HT_N5262_E213
+
+#define RADIO_DIO_1    16
+#define RADIO_NSS      26
+#define RADIO_RESET    12
+#define RADIO_BUSY     15
+
+#else
 #define RADIO_DIO_1    20
 #define RADIO_NSS      24
 #define RADIO_RESET    18
@@ -50,7 +59,7 @@
 #define LORA_CLK       19
 #define LORA_MISO      23
 #define LORA_MOSI      22
-
+#endif
 
 
 #define COLOR_SEND 0x500000   //color red, light 0x10
