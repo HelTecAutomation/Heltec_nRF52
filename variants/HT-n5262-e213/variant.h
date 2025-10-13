@@ -119,7 +119,7 @@ static const uint8_t MISO = PIN_SPI_MISO ;
 static const uint8_t SCK  = PIN_SPI_SCK ;
 
 // SPI1
-#define PIN_SPI1_MISO         (43)
+#define PIN_SPI1_MISO         (-1)
 #define PIN_SPI1_MOSI         (20)
 #define PIN_SPI1_SCK          (22)
 
@@ -127,6 +127,12 @@ static const uint8_t SS1   = (30);
 static const uint8_t MOSI1 = PIN_SPI1_MOSI ;
 static const uint8_t MISO1 = PIN_SPI1_MISO ;
 static const uint8_t SCK1  = PIN_SPI1_SCK ;
+
+
+#define PIN_DISPLAY_CS                 (24)
+#define PIN_DISPLAY_BUSY               (32 + 6)
+#define PIN_DISPLAY_DC                 (31)
+#define PIN_DISPLAY_RST                (32 + 4)
 
 
 /*
