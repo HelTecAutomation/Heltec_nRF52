@@ -721,7 +721,6 @@ void RadioSetRxConfig( RadioModems_t modem, uint32_t bandwidth,
     }
 }
 extern  bool AdrCtrlOn;
-extern uint8_t power_for_noAdr;
 void RadioSetTxConfig( RadioModems_t modem, int8_t power, uint32_t fdev,
                         uint32_t bandwidth, uint32_t datarate,
                         uint8_t coderate, uint16_t preambleLen,
@@ -808,10 +807,6 @@ void RadioSetTxConfig( RadioModems_t modem, int8_t power, uint32_t fdev,
             SX126xSetModulationParams( &SX126x.ModulationParams );
             SX126xSetPacketParams( &SX126x.PacketParams );
             break;
-    }
-    if(AdrCtrlOn==false)
-	{
-      power=power_for_noAdr;
     }
     SX126xSetRfTxPower( power );
     TxTimeout = timeout;

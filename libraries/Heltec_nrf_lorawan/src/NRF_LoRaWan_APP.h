@@ -56,7 +56,6 @@ extern uint32_t devAddr;
 extern uint8_t appData[LORAWAN_APP_DATA_MAX_SIZE];
 extern uint8_t appDataSize;
 extern uint8_t appPort;
-extern uint8_t power_for_noAdr;
 extern uint32_t txDutyCycleTime;
 extern bool overTheAirActivation;
 extern LoRaMacRegion_t loraWanRegion;
@@ -90,9 +89,6 @@ extern const char * region_str[15];
 extern const uint8_t region_array[15];
 extern const uint8_t def_rx2dr[15];
 extern const uint32_t def_rx2freq[15]; 
-extern uint8_t rx2dr_type;
-extern uint8_t rx2freq_type;
-extern uint8_t region_index;
 
 extern enum eDeviceState_LoraWan deviceState;
 

@@ -63,17 +63,6 @@ void turnOffRGB(void)
 int8_t defaultDrForNoAdr = 3;
 
 
-uint8_t power_for_noAdr=17;
-uint16_t rx1_delay=1000;
-uint16_t rx2_delay=2000;
-uint8_t rx2_dr=0;
-uint32_t rx2_freq=505300000;
-uint8_t rx2dr_type=0;
-uint8_t rx2freq_type=0;
-uint8_t region_index=0;
-
-
-
 const char * region_str[15]={"CN470","IN865","EU868","US915","AU915","KR920","AS923_1","AS923_2","NULL","NULL","NULL","NULL","NULL","NULL","NULL"};
 const uint8_t region_array[15]={LORAMAC_REGION_CN470,LORAMAC_REGION_IN865,LORAMAC_REGION_EU868,LORAMAC_REGION_US915,LORAMAC_REGION_AU915,LORAMAC_REGION_KR920,LORAMAC_REGION_AS923_AS1,LORAMAC_REGION_AS923_AS2,0,0,0,0,0,0};
 const uint8_t def_rx2dr[15] = {CN470_RX_WND_2_DR,IN865_RX_WND_2_DR,EU868_RX_WND_2_DR,US915_RX_WND_2_DR,AU915_RX_WND_2_DR,KR920_RX_WND_2_DR,AS923_RX_WND_2_DR,AS923_RX_WND_2_DR,0,0,0,0,0,0,0};
@@ -460,36 +449,6 @@ void print_Hex(uint8_t *para,uint8_t size)
 	}
 }
 
-void printDevParam(void)
-{
-
-	debug_printf("+REGION=%s\r\n",region_str[region_index]);
-	debug_printf("+OTAA=%d\r\n",overTheAirActivation);
-	debug_printf("+Class=%X\r\n",loraWanClass+10);
-	debug_printf("+ADR=%d\r\n",loraWanAdr);
-	debug_printf("+DR=%d\r\n",defaultDrForNoAdr);
-	debug_printf("+Power=%d\r\n",power_for_noAdr);
-	debug_printf("+IsTxConfirmed=%d\r\n",isTxConfirmed);
-	debug_printf("+AppPort=%d\r\n",appPort);
-	debug_printf("+DutyCycle=%u\r\n",appTxDutyCycle);
-	debug_printf("+Retry=%d\r\n",confirmedNbTrials);
-//	String ch=channeltoString();
-//	debug_printf("+ChMask=%s\r\n",ch.c_str());
-	//printf("+ChMask=%04X%04X%04X%04X%04X%04X\r\n",userChannelsMask[5],userChannelsMask[4],userChannelsMask[3],userChannelsMask[2],userChannelsMask[1],	userChannelsMask[0]);
-	debug_printf("+DevEui=");print_Hex(devEui,8); debug_printf("(For OTAA Mode)\r\n");
-	debug_printf("+AppEui=");print_Hex(appEui,8); debug_printf("(For OTAA Mode)\r\n");
-	debug_printf("+AppKey=");print_Hex(appKey,16);	debug_printf("(For OTAA Mode)\r\n");
-	debug_printf("+NwkSKey=");print_Hex(nwkSKey,16);	debug_printf("(For ABP Mode)\r\n");
-	debug_printf("+AppSKey=");print_Hex(appSKey,16);	debug_printf("(For ABP Mode)\r\n");
-	debug_printf("+DevAddr=%08X(For ABP Mode)\r\n",devAddr);
-	debug_printf("+RX1DELAY=%d\r\n",rx1_delay/1000);
-	debug_printf("+RX2DELAY=%d\r\n",rx2_delay/1000);
-	debug_printf("+RX2DR_TYPE=%d\r\n",rx2dr_type);
-	debug_printf("+RX2FREQ_TYPE=%d\r\n",rx2freq_type);
-	debug_printf("+RX2DR=%d\r\n",rx2_dr);
-	debug_printf("+RX2FREQ=%d\r\n",rx2_freq);
-}
-
 
 LoRaMacPrimitives_t LoRaMacPrimitive;
 LoRaMacCallback_t LoRaMacCallback;
@@ -559,7 +518,6 @@ void LoRaWanClass::init(DeviceClass_t lorawanClass,LoRaMacRegion_t region)
 			break;
 	}
 	debug_printf(" Class %X start!\r\n\r\n",loraWanClass+10);
-	printDevParam();
 
 	if(region == LORAMAC_REGION_AS923_AS1 || region == LORAMAC_REGION_AS923_AS2)
 		region = LORAMAC_REGION_AS923;

@@ -747,7 +747,7 @@ static void OnRadioTxDone( void )
     }
 
     // Verify if the last uplink was a join request
-    if ( ( LoRaMacFlags.Bits.MlmeReq == 1 ) && ( MlmeConfirm.MlmeRequest == MLME_JOIN ) ) {
+    if ( ( LoRaMacFlags.Bits.MlmeReq == 1 ) && ( LoRaMacConfirmQueueIsCmdActive( MLME_JOIN ) == true ) ) {
         LastTxIsJoinRequest = true;
     } else {
         LastTxIsJoinRequest = false;
@@ -1480,7 +1480,7 @@ static void OnMacStateCheckTimerEvent( void )
 
         if ( ( NodeAckRequested == false ) && ( noTx == false ) ) {
             if ( ( LoRaMacFlags.Bits.MlmeReq == 1 ) || ( ( LoRaMacFlags.Bits.McpsReq == 1 ) ) ) {
-                if ( ( LoRaMacFlags.Bits.MlmeReq == 1 ) && ( MlmeConfirm.MlmeRequest == MLME_JOIN ) ) {
+                if ( ( LoRaMacFlags.Bits.MlmeReq == 1 ) && ( LoRaMacConfirmQueueIsCmdActive( MLME_JOIN ) == true ) ) {
                     // Procedure for the join request
                     MlmeConfirm.NbRetries = JoinRequestTrials;
 
@@ -1552,7 +1552,7 @@ static void OnMacStateCheckTimerEvent( void )
             }
 #ifdef CONFIG_LWAN
         } else {
-            if ( !(( LoRaMacFlags.Bits.MlmeReq == 1 ) && ( MlmeConfirm.MlmeRequest == MLME_JOIN )) )
+            if ( !(( LoRaMacFlags.Bits.MlmeReq == 1 ) && ( LoRaMacConfirmQueueIsCmdActive( MLME_JOIN ) == true )) )
                 lwan_dev_status_set(DEVICE_STATUS_SEND_PASS_WITHOUT_DL);
         }
 #else
@@ -1695,7 +1695,7 @@ static void OnTxDelayedTimerEvent( void )
     TimerStop( &TxDelayedTimer );
     LoRaMacState &= ~LORAMAC_TX_DELAYED;
 
-    if ( ( LoRaMacFlags.Bits.MlmeReq == 1 ) && ( MlmeConfirm.MlmeRequest == MLME_JOIN ) ) {
+    if ( ( LoRaMacFlags.Bits.MlmeReq == 1 ) && ( LoRaMacConfirmQueueIsCmdActive( MLME_JOIN ) == true ) ) {
         ResetMacParameters( );
 
         altDr.NbTrials = JoinRequestTrials + 1;
@@ -3103,21 +3103,21 @@ LoRaMacStatus_t LoRaMacInitialization( LoRaMacPrimitives_t *primitives, LoRaMacC
     phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
     LoRaMacParamsDefaults.ChannelsTxPower = phyParam.Value;
 
-//    getPhy.Attribute = PHY_DEF_TX_DR;
-//    phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
-    LoRaMacParamsDefaults.ChannelsDatarate = defaultDrForNoAdr;
+    getPhy.Attribute = PHY_DEF_TX_DR;
+    phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
+    LoRaMacParamsDefaults.ChannelsDatarate = phyParam.Value;
 
     getPhy.Attribute = PHY_MAX_RX_WINDOW;
     phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
     LoRaMacParamsDefaults.MaxRxWindow = phyParam.Value;
 
-//    getPhy.Attribute = PHY_RECEIVE_DELAY1;
-//    phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
-    LoRaMacParamsDefaults.ReceiveDelay1 = rx1_delay;
+    getPhy.Attribute = PHY_RECEIVE_DELAY1;
+    phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
+    LoRaMacParamsDefaults.ReceiveDelay1 = phyParam.Value;
 
-//    getPhy.Attribute = PHY_RECEIVE_DELAY2;
-//    phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
-    LoRaMacParamsDefaults.ReceiveDelay2 = rx2_delay;
+    getPhy.Attribute = PHY_RECEIVE_DELAY2;
+    phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
+    LoRaMacParamsDefaults.ReceiveDelay2 = phyParam.Value;
 
     getPhy.Attribute = PHY_JOIN_ACCEPT_DELAY1;
     phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
@@ -3131,13 +3131,13 @@ LoRaMacStatus_t LoRaMacInitialization( LoRaMacPrimitives_t *primitives, LoRaMacC
     phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
     LoRaMacParamsDefaults.Rx1DrOffset = phyParam.Value;
 
-//    getPhy.Attribute = PHY_DEF_RX2_FREQUENCY;
-//    phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
-    LoRaMacParamsDefaults.Rx2Channel.Frequency = rx2_freq;
+    getPhy.Attribute = PHY_DEF_RX2_FREQUENCY;
+    phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
+    LoRaMacParamsDefaults.Rx2Channel.Frequency = phyParam.Value;
 
-//    getPhy.Attribute = PHY_DEF_RX2_DR;
-//    phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
-    LoRaMacParamsDefaults.Rx2Channel.Datarate = rx2_dr;
+    getPhy.Attribute = PHY_DEF_RX2_DR;
+    phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );
+    LoRaMacParamsDefaults.Rx2Channel.Datarate = phyParam.Value;
 
     getPhy.Attribute = PHY_DEF_UPLINK_DWELL_TIME;
     phyParam = RegionGetPhyParam( LoRaMacRegion, &getPhy );

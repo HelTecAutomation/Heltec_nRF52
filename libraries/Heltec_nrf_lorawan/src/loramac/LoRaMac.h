@@ -2509,10 +2509,6 @@ LoRaMacStatus_t LoRaMacMcpsRequest( McpsReq_t *mcpsRequest );
 extern	void turnOnRGB(uint32_t color,uint32_t time);
 extern	void turnOffRGB(void);
 extern int8_t defaultDrForNoAdr ;
-extern uint16_t rx1_delay;
-extern uint16_t rx2_delay;
-extern uint8_t rx2_dr;
-extern uint32_t rx2_freq;
 
 
 #ifdef __cplusplus
