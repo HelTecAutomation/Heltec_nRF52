@@ -134,7 +134,7 @@ recipe.output.save_file={build.project_name}.{build.variant}.hex
 # https://github.com/adafruit/Adafruit_nRF52_nrfutil
 # pre-built binaries are provided for macos and windows
 # ------------------------------------------------
-tools.uf2conv.cmd=python {runtime.platform.path}/tools/uf2conv/uf2conv.py
+tools.uf2conv.cmd={runtime.platform.path}/tools/uf2conv/uf2conv.py
 tools.uf2conv.cmd.windows={runtime.platform.path}/tools/uf2conv/uf2conv.exe
 tools.uf2conv.cmd.macosx=python {runtime.platform.path}/tools/uf2conv/uf2conv.py
 
