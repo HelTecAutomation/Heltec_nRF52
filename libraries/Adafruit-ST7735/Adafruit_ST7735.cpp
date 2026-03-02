@@ -248,8 +248,8 @@ void Adafruit_ST7735::initR(uint8_t options) {
     _height = ST7735_TFTWIDTH_80;
     _width = ST7735_TFTHEIGHT_160;
     displayInit(Rcmd2green160x80plugin);
-    _colstart = 26;
-    _rowstart = 1;
+    _colstart = 24;
+    _rowstart = 0;
     invertOnCommand = ST77XX_INVOFF;
     invertOffCommand = ST77XX_INVON;
   } else {

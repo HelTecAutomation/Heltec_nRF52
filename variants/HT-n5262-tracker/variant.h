@@ -44,9 +44,9 @@ extern "C"
 #define NUM_ANALOG_OUTPUTS   (0)
 
 // LEDs
-#define PIN_LED1             (35)
-#define PIN_NEOPIXEL         (14)
-#define NEOPIXEL_NUM         2
+#define PIN_LED1             (0+28)
+#define PIN_NEOPIXEL         -1
+#define NEOPIXEL_NUM         1
 
 #define LED_BUILTIN          PIN_LED1
 
@@ -57,15 +57,6 @@ extern "C"
 
 // Buttons
 #define PIN_BUTTON1          (32 + 10)    // Button A
-#define PIN_BUTTON2          (11)   // Button B
-
-// Microphone
-#define PIN_PDM_DIN           35
-#define PIN_PDM_CLK           36
-#define PIN_PDM_PWR           -1  // not used
-
-// Buzzer
-#define PIN_BUZZER            46
 
 /*
  * Analog pins
@@ -90,15 +81,6 @@ static const uint8_t A7  = PIN_A7 ;
 #define ADC_RESOLUTION    14
 
 /*
- * Serial interfaces
- */
-#define PIN_SERIAL1_RX       (9)
-#define PIN_SERIAL1_TX       (10)
-
-#define PIN_SERIAL2_RX       (37)
-#define PIN_SERIAL2_TX       (39)
-
-/*
  * SPI Interfaces
  */
 #define SPI_INTERFACES_COUNT 2
@@ -108,63 +90,77 @@ static const uint8_t A7  = PIN_A7 ;
 // If not defined, default to 0 or SPI.
 #define SPI_32MHZ_INTERFACE  1
 
-// SPI
-#define PIN_SPI_MISO         (23)
-#define PIN_SPI_MOSI         (22)
-#define PIN_SPI_SCK          (19)
+// For LORA, spi 0
+#define PIN_SPI_MISO (0 + 14)
+#define PIN_SPI_MOSI (0 + 11)
+#define PIN_SPI_SCK  (32 + 8)
 
-static const uint8_t SS   = (16);
+static const uint8_t SS   = (0 + 5);
 static const uint8_t MOSI = PIN_SPI_MOSI ;
 static const uint8_t MISO = PIN_SPI_MISO ;
 static const uint8_t SCK  = PIN_SPI_SCK ;
 
-// SPI1
-#define PIN_SPI1_MISO         (43)
-#define PIN_SPI1_MOSI         (41)
-#define PIN_SPI1_SCK          (40)
 
-static const uint8_t SS1   = (30);
-static const uint8_t MOSI1 = PIN_SPI1_MOSI ;
-static const uint8_t MISO1 = PIN_SPI1_MISO ;
-static const uint8_t SCK1  = PIN_SPI1_SCK ;
+#define GPS_UC6580
+#define GPS_BAUDRATE 115200
+#define PIN_GPS_RESET (32 + 14) // An output to reset L76K GPS. As per datasheet, low for > 100ms will reset the L76K
+#define GPS_RESET_MODE LOW
+#define PIN_GPS_EN    (0+6)
+#define GPS_EN_ACTIVE  LOW
+#define PIN_GPS_PPS (32 + 11)
+#define GPS_TX_PIN  (0 + 25) // This is for bits going TOWARDS the CPU
+#define GPS_RX_PIN  (0 + 23)  // This is for bits going TOWARDS the GPS
 
+#define PIN_SERIAL1_RX GPS_RX_PIN 
+#define PIN_SERIAL1_TX GPS_TX_PIN
+/*
+ * Serial interfaces
+ */
+#define PIN_SERIAL2_RX       (9)
+#define PIN_SERIAL2_TX       (10)
 
 /*
  * Wire Interfaces
  */
 #define WIRE_INTERFACES_COUNT 1
 
-#define PIN_WIRE_SDA        (26)
-#define PIN_WIRE_SCL        (27)
+#define PIN_WIRE_SDA (0 + 7) // P0.26
+#define PIN_WIRE_SCL (0 + 8) // P0.27
 
-// QSPI Pins
-/*
-#define PIN_QSPI_SCK         46
-#define PIN_QSPI_CS          47
-#define PIN_QSPI_IO0         44
-#define PIN_QSPI_IO1         45
-#define PIN_QSPI_IO2         32
-#define PIN_QSPI_IO3         33
-*/
 
-// On-board QSPI Flash
-#define EXTERNAL_FLASH_DEVICES   MX25R1635F
-#define EXTERNAL_FLASH_USE_QSPI
+#define ST7735_CS    (0+22)
+#define ST7735_RS    (0+15)  // DC
+#define ST7735_SDA   (0+17) // MOSI
+#define ST7735_SCK   (0+20)
+#define ST7735_RESET (0+13)
+#define ST7735_MISO -1
+#define ST7735_BUSY -1
+#define ST7735_BL    (32+12)
+
+// SPI1
+#define PIN_SPI1_MISO -1 // FIXME not really needed, but for now the SPI code requires something to be defined, pick an used GPIO
+#define PIN_SPI1_MOSI (0+17)
+#define PIN_SPI1_SCK  (0+20)
+
+static const uint8_t SS1   = (0+22);
+static const uint8_t MOSI1 = PIN_SPI1_MOSI ;
+static const uint8_t MISO1 = PIN_SPI1_MISO ;
+static const uint8_t SCK1  = PIN_SPI1_SCK ;
 
 // On-board TFT display
-#define PIN_TFT_CS        11
-#define PIN_TFT_RST       2 // Or set to -1 and connect to Arduino RESET pin
-#define PIN_TFT_DC        12
+#define PIN_TFT_CS        (0+22)
+#define PIN_TFT_RST       (0+13) // Or set to -1 and connect to Arduino RESET pin
+#define PIN_TFT_DC        (0+15)
 
-#define PIN_VEXT_CTL      21
+#define PIN_VEXT_CTL      (0 + 26)
 #define VEXT_ENABLE       1
-#define PIN_TFT_VDD_CTL      3
-#define TFT_VDD_ENABLE       0
-#define PIN_TFT_LEDA_CTL     15
-#define TFT_LEDA_ENABLE      0
+#define PIN_TFT_VDD_CTL   (0 + 26)
+#define TFT_VDD_ENABLE    1
+#define PIN_TFT_LEDA_CTL  (32+12)
+#define TFT_LEDA_ENABLE   0
 
-#define PIN_BAT_ADC     4
-#define PIN_BAT_ADC_CTL 6
+#define PIN_BAT_ADC     (0+3)
+#define PIN_BAT_ADC_CTL (32+15)
 #define BAT_AMPLIFY     4.9
 
 #ifdef __cplusplus
