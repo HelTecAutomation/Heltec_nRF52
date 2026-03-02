@@ -270,7 +270,7 @@ HT-n5262-tracker.upload.maximum_data_size=237568
 # Build
 HT-n5262-tracker.build.mcu=cortex-m4
 HT-n5262-tracker.build.f_cpu=64000000
-HT-n5262-tracker.build.board=HT_N5262_TRACKER
+HT-n5262-tracker.build.board=HT_N5262
 HT-n5262-tracker.build.core=nRF5
 HT-n5262-tracker.build.variant=HT-n5262-tracker
 HT-n5262-tracker.build.usb_manufacturer="Heltec"
