@@ -346,27 +346,30 @@ void gps_test(void)
 		{
 			if(Serial1.peek()!='\n')
 			{
-				gps.encode(Serial1.read());
+				char c = Serial1.read();
+				gps.encode(c);
+				Serial.write(c);
 			}
 			else
 			{
+				Serial.println();
 				Serial1.read();
 				st7735.fillScreen(ST7735_BLACK);
-        st7735.setCursor(0, 0);
-        st7735.println("gps_detected");
+				st7735.setCursor(0, 0);
+				st7735.println("gps_detected");
 				if(gps.time.second()==0)
 				{
 					continue;
 				}
 				String time_str = (String)gps.time.hour() + ":" + (String)gps.time.minute() + ":" + (String)gps.time.second()+ ":"+(String)gps.time.centisecond();
-        st7735.setCursor(0,15);
-        st7735.println(time_str);
+				st7735.setCursor(0,15);
+				st7735.println(time_str);
 				String latitude = "LAT: " + (String)gps.location.lat();
-        st7735.setCursor(0, 30);
-        st7735.println(latitude);
+				st7735.setCursor(0, 30);
+				st7735.println(latitude);
 				String longitude  = "LON: "+  (String)gps.location.lng();
-        st7735.setCursor(0, 45);
-        st7735.println(longitude);
+				st7735.setCursor(0, 45);
+				st7735.println(longitude);
 
 				Serial.printf(" %02d:%02d:%02d.%02d",gps.time.hour(),gps.time.minute(),gps.time.second(),gps.time.centisecond());
 				Serial.print("LAT: ");
