@@ -248,7 +248,7 @@ HT-n5262-solar.build.debug_flags=-DCFG_DEBUG=0
 # -----------------------------------
 #HT-n5262-tracker
 # -----------------------------------
-HT-n5262-tracker.name=tracker
+HT-n5262-tracker.name=Mesh Node Tracker
 
 # VID/PID for Bootloader, Arduino & CircuitPython
 HT-n5262-tracker.vid.0=0x239A
