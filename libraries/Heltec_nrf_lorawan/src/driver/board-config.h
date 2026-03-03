@@ -50,6 +50,18 @@
 #define RADIO_RESET    12
 #define RADIO_BUSY     15
 
+#elif defined(HT_N5262_TRACKER)
+
+#define RADIO_DIO_1    21
+#define RADIO_NSS      5
+#define RADIO_RESET    16
+#define RADIO_BUSY     19
+
+#define USE_KCT8103L_PA
+#define LORA_PA_POWER (0+30)   // power en
+#define LORA_PA_CSD   (0+12)
+#define LORA_PA_CTX   (32+9)    // enable tx
+
 #else
 #define RADIO_DIO_1    20
 #define RADIO_NSS      24
