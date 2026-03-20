@@ -214,7 +214,7 @@ void enter_deepsleep(void)
 	SPI.end();
 	pinMode(VGNSS_CTRL,OUTPUT);
 	digitalWrite(VGNSS_CTRL,HIGH);
-	Serial1.end();
+	Serial2.end();
 	Serial.end();
 	pinMode(PIN_LED1,OUTPUT);
 	digitalWrite(PIN_LED1,LOW);
@@ -334,7 +334,7 @@ void gps_test(void)
 	uint32_t last_second=0;
 	pinMode(VGNSS_CTRL,OUTPUT);
 	digitalWrite(VGNSS_CTRL,LOW);
-	Serial1.begin(115200);    
+	Serial2.begin(115200);    
 	Serial.println("gps_test");
 	st7735.fillScreen(ST7735_BLACK);
 	delay(100);
@@ -342,18 +342,18 @@ void gps_test(void)
   st7735.println("gps_test");
 	while(1)
 	{
-		if(Serial1.available()>0)
+		if(Serial2.available()>0)
 		{
-			if(Serial1.peek()!='\n')
+			if(Serial2.peek()!='\n')
 			{
-				char c = Serial1.read();
+				char c = Serial2.read();
 				gps.encode(c);
 				Serial.write(c);
 			}
 			else
 			{
 				Serial.println();
-				Serial1.read();
+				Serial2.read();
 				st7735.fillScreen(ST7735_BLACK);
 				st7735.setCursor(0, 0);
 				st7735.println("gps_detected");
@@ -381,7 +381,7 @@ void gps_test(void)
 				{
 					last_second = gps.time.second();
 					delay(1000);
-					while(Serial1.read()>0);
+					while(Serial2.read()>0);
 				}
 				else
 				{
@@ -389,7 +389,7 @@ void gps_test(void)
 					clear_num++;
 					if(clear_num%5==0)
 					{
-						while(Serial1.read()>0);
+						while(Serial2.read()>0);
 					}
 				}
 			}

@@ -111,13 +111,13 @@ static const uint8_t SCK  = PIN_SPI_SCK ;
 #define GPS_TX_PIN  (0 + 25) // This is for bits going TOWARDS the CPU
 #define GPS_RX_PIN  (0 + 23)  // This is for bits going TOWARDS the GPS
 
-#define PIN_SERIAL1_RX GPS_RX_PIN 
-#define PIN_SERIAL1_TX GPS_TX_PIN
+#define PIN_SERIAL2_RX GPS_RX_PIN 
+#define PIN_SERIAL2_TX GPS_TX_PIN
 /*
  * Serial interfaces
  */
-#define PIN_SERIAL2_RX       (9)
-#define PIN_SERIAL2_TX       (10)
+#define PIN_SERIAL1_RX       (9)
+#define PIN_SERIAL1_TX       (10)
 
 /*
  * Wire Interfaces
