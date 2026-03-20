@@ -50,7 +50,7 @@
 #define RADIO_RESET    12
 #define RADIO_BUSY     15
 
-#elif defined(HT_N5262_TRACKER)
+#elif defined(HT_N5262G)
 
 #define RADIO_DIO_1    21
 #define RADIO_NSS      5
