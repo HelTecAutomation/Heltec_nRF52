@@ -482,7 +482,7 @@ RadioPacketTypes_t SX126xGetPacketType( void )
 }
 
 const uint16_t gc1109_tx_gain[] =   {11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 10, 10, 9, 9, 8, 7};
-const uint16_t kct8103l_tx_gain[] = {13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 12, 12, 11, 11, 10,9, 8, 7};
+const uint16_t kct8103l_tx_gain[] = {14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 13, 13, 13, 12, 11, 10, 9, 8, 7};
 int8_t powerConversion(int8_t loraOutputPower,uint16_t *gain, uint16_t gain_num)
 {
     uint16_t *tx_gain,tx_gain_num;
@@ -556,7 +556,7 @@ void SX126xSetTxParams( int8_t power, RadioRampTimes_t rampTime )
 #if defined(USE_GC1109L_PA)
         power = powerConversion(power, (uint16_t*)gc1109_tx_gain, sizeof(gc1109_tx_gain)/sizeof(gc1109_tx_gain[0]));
 #elif defined(USE_KCT8103L_PA)
-        power = powerConversion(power, (uint16_t*)gc1109_tx_gain, sizeof(gc1109_tx_gain)/sizeof(gc1109_tx_gain[0]));
+        power = powerConversion(power, (uint16_t*)kct8103l_tx_gain, sizeof(kct8103l_tx_gain)/sizeof(kct8103l_tx_gain[0]));
 #else
         if( power > 22 )
         {
