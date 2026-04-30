@@ -259,30 +259,43 @@
  * LoRaMac default channel 1
  * Channel = { Frequency [Hz], RX1 Frequency [Hz], { ( ( DrMax << 4 ) | DrMin ) }, Band }
  */
-#define AS923_LC1                                   { 923200000, 0, { ( ( DR_5 << 4 ) | DR_0 ) }, 0 }
-
-/*!
- * LoRaMac default channel 2
- * Channel = { Frequency [Hz], RX1 Frequency [Hz], { ( ( DrMax << 4 ) | DrMin ) }, Band }
- */
-#define AS923_LC2                                   { 923400000, 0, { ( ( DR_5 << 4 ) | DR_0 ) }, 0 }
-
-
-#define AS923_1_LC3                { 922000000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
-#define AS923_1_LC4                { 922200000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
-#define AS923_1_LC5                { 922400000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
-#define AS923_1_LC6                { 922600000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
-#define AS923_1_LC7                { 922800000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
-#define AS923_1_LC8                { 923000000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_LC1                { 923200000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_LC2                { 923400000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_LC3                { 923600000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_LC4                { 923800000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_LC5                { 924000000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_LC6                { 924200000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_LC7                { 924400000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_LC8                { 924600000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
 
 
-#define AS923_2_LC3                { 923600000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
-#define AS923_2_LC4                { 923800000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
-#define AS923_2_LC5                { 924000000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
-#define AS923_2_LC6                { 924200000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
-#define AS923_2_LC7                { 924400000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
-#define AS923_2_LC8                { 924600000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_2_LC1                { 921400000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_2_LC2                { 921600000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_2_LC3                { 921800000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_2_LC4                { 922000000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_2_LC5                { 922200000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_2_LC6                { 922400000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_2_LC7                { 922600000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_2_LC8                { 922800000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
 
+
+#define AS923_3_LC1                { 916600000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_3_LC2                { 916800000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_3_LC3                { 917000000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_3_LC4                { 917200000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_3_LC5                { 917400000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_3_LC6                { 917600000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_3_LC7                { 917800000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_3_LC8                { 918000000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+
+#define AS923_4_LC1                { 917300000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_4_LC2                { 917500000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_4_LC3                { 917700000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_4_LC4                { 917900000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_4_LC5                { 918100000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_4_LC6                { 918300000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_4_LC7                { 918500000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
+#define AS923_4_LC8                { 918700000,0, { ( ( DR_5 << 4 ) | AS923_TX_MIN_DATARATE ) }, 0 }
 
 /*!
  * LoRaMac channels which are allowed for the join procedure
@@ -361,6 +374,9 @@ void RegionAS923SetBandTxDone( SetBandTxDoneParams_t* txDone );
  * \param [IN] type Sets the initialization type.
  */
 void RegionAS923InitDefaults( InitType_t type );
+void RegionAS923_2InitDefaults( InitType_t type );
+void RegionAS923_3InitDefaults( InitType_t type );
+void RegionAS923_4InitDefaults( InitType_t type );
 
 /*!
  * \brief Verifies a parameter.

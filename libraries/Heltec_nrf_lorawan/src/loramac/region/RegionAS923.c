@@ -379,9 +379,127 @@ void RegionAS923InitDefaults( InitType_t type )
             // Channels
             Channels[0] = ( ChannelParams_t ) AS923_LC1;
             Channels[1] = ( ChannelParams_t ) AS923_LC2;
+            Channels[2] = ( ChannelParams_t ) AS923_LC3;
+            Channels[3] = ( ChannelParams_t ) AS923_LC4;
+            Channels[4] = ( ChannelParams_t ) AS923_LC5;
+            Channels[5] = ( ChannelParams_t ) AS923_LC6;
+            Channels[6] = ( ChannelParams_t ) AS923_LC7;
+            Channels[7] = ( ChannelParams_t ) AS923_LC8;
 
             // Initialize the channels default mask
-            ChannelsDefaultMask[0] = LC( 1 ) + LC( 2 );
+            ChannelsDefaultMask[0] = 0xFF;
+            // Update the channels mask
+            RegionCommonChanMaskCopy( ChannelsMask, ChannelsDefaultMask, 1 );
+            break;
+        }
+        case INIT_TYPE_RESTORE:
+        {
+            // Restore channels default mask
+            ChannelsMask[0] |= ChannelsDefaultMask[0];
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
+}
+
+
+void RegionAS923_2InitDefaults( InitType_t type )
+{
+    switch( type )
+    {
+        case INIT_TYPE_INIT:
+        {
+            // Channels
+            Channels[0] = ( ChannelParams_t ) AS923_2_LC1;
+            Channels[1] = ( ChannelParams_t ) AS923_2_LC2;
+            Channels[2] = ( ChannelParams_t ) AS923_2_LC3;
+            Channels[3] = ( ChannelParams_t ) AS923_2_LC4;
+            Channels[4] = ( ChannelParams_t ) AS923_2_LC5;
+            Channels[5] = ( ChannelParams_t ) AS923_2_LC6;
+            Channels[6] = ( ChannelParams_t ) AS923_2_LC7;
+            Channels[7] = ( ChannelParams_t ) AS923_2_LC8;
+
+            // Initialize the channels default mask
+            ChannelsDefaultMask[0] = 0xFF;
+
+            // Update the channels mask
+            RegionCommonChanMaskCopy( ChannelsMask, ChannelsDefaultMask, 1 );
+            break;
+        }
+        case INIT_TYPE_RESTORE:
+        {
+            // Restore channels default mask
+            ChannelsMask[0] |= ChannelsDefaultMask[0];
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
+}
+
+
+void RegionAS923_3InitDefaults( InitType_t type )
+{
+    switch( type )
+    {
+        case INIT_TYPE_INIT:
+        {
+            // Channels
+            Channels[0] = ( ChannelParams_t ) AS923_3_LC1;
+            Channels[1] = ( ChannelParams_t ) AS923_3_LC2;
+            Channels[2] = ( ChannelParams_t ) AS923_3_LC3;
+            Channels[3] = ( ChannelParams_t ) AS923_3_LC4;
+            Channels[4] = ( ChannelParams_t ) AS923_3_LC5;
+            Channels[5] = ( ChannelParams_t ) AS923_3_LC6;
+            Channels[6] = ( ChannelParams_t ) AS923_3_LC7;
+            Channels[7] = ( ChannelParams_t ) AS923_3_LC8;
+
+            // Initialize the channels default mask
+            ChannelsDefaultMask[0] = 0xFF;
+
+            // Update the channels mask
+            RegionCommonChanMaskCopy( ChannelsMask, ChannelsDefaultMask, 1 );
+            break;
+        }
+        case INIT_TYPE_RESTORE:
+        {
+            // Restore channels default mask
+            ChannelsMask[0] |= ChannelsDefaultMask[0];
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
+}
+
+
+void RegionAS923_4InitDefaults( InitType_t type )
+{
+    switch( type )
+    {
+        case INIT_TYPE_INIT:
+        {
+            // Channels
+            // Channels
+            Channels[0] = ( ChannelParams_t ) AS923_4_LC1;
+            Channels[1] = ( ChannelParams_t ) AS923_4_LC2;
+            Channels[2] = ( ChannelParams_t ) AS923_4_LC3;
+            Channels[3] = ( ChannelParams_t ) AS923_4_LC4;
+            Channels[4] = ( ChannelParams_t ) AS923_4_LC5;
+            Channels[5] = ( ChannelParams_t ) AS923_4_LC6;
+            Channels[6] = ( ChannelParams_t ) AS923_4_LC7;
+            Channels[7] = ( ChannelParams_t ) AS923_4_LC8;
+
+            // Initialize the channels default mask
+            ChannelsDefaultMask[0] = 0xFF;
+
             // Update the channels mask
             RegionCommonChanMaskCopy( ChannelsMask, ChannelsDefaultMask, 1 );
             break;

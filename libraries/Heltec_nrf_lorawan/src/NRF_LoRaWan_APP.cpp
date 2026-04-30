@@ -64,9 +64,10 @@ int8_t defaultDrForNoAdr = 3;
 
 
 const char * region_str[15]={"CN470","IN865","EU868","US915","AU915","KR920","AS923_1","AS923_2","NULL","NULL","NULL","NULL","NULL","NULL","NULL"};
-const uint8_t region_array[15]={LORAMAC_REGION_CN470,LORAMAC_REGION_IN865,LORAMAC_REGION_EU868,LORAMAC_REGION_US915,LORAMAC_REGION_AU915,LORAMAC_REGION_KR920,LORAMAC_REGION_AS923_AS1,LORAMAC_REGION_AS923_AS2,0,0,0,0,0,0};
-const uint8_t def_rx2dr[15] = {CN470_RX_WND_2_DR,IN865_RX_WND_2_DR,EU868_RX_WND_2_DR,US915_RX_WND_2_DR,AU915_RX_WND_2_DR,KR920_RX_WND_2_DR,AS923_RX_WND_2_DR,AS923_RX_WND_2_DR,0,0,0,0,0,0,0};
-const uint32_t def_rx2freq[15] = {CN470_RX_WND_2_FREQ,IN865_RX_WND_2_FREQ,EU868_RX_WND_2_FREQ,US915_RX_WND_2_FREQ,AU915_RX_WND_2_FREQ,KR920_RX_WND_2_FREQ,AS923_RX_WND_2_FREQ,AS923_RX_WND_2_FREQ,0,0,0,0,0,0,0}; 
+const uint8_t 
+region_array[15]={LORAMAC_REGION_CN470,LORAMAC_REGION_IN865,LORAMAC_REGION_EU868,LORAMAC_REGION_US915,LORAMAC_REGION_AU915,LORAMAC_REGION_KR920,LORAMAC_REGION_AS923,LORAMAC_REGION_AS923_2,LORAMAC_REGION_AS923_3,LORAMAC_REGION_AS923_4,0,0,0,0,0};
+const uint8_t def_rx2dr[15] = {CN470_RX_WND_2_DR,IN865_RX_WND_2_DR,EU868_RX_WND_2_DR,US915_RX_WND_2_DR,AU915_RX_WND_2_DR,KR920_RX_WND_2_DR,AS923_RX_WND_2_DR,AS923_RX_WND_2_DR,AS923_RX_WND_2_DR,AS923_RX_WND_2_DR,0,0,0,0,0};
+const uint32_t def_rx2freq[15] = {CN470_RX_WND_2_FREQ,IN865_RX_WND_2_FREQ,EU868_RX_WND_2_FREQ,US915_RX_WND_2_FREQ,AU915_RX_WND_2_FREQ,KR920_RX_WND_2_FREQ,AS923_RX_WND_2_FREQ,AS923_RX_WND_2_FREQ,AS923_RX_WND_2_FREQ,AS923_RX_WND_2_FREQ,0,0,0,0,0}; 
 
 uint8_t debugLevel=LoRaWAN_DEBUG_LEVEL;
 
@@ -427,9 +428,6 @@ static void MlmeIndication( MlmeIndication_t *mlmeIndication )
 
 void lwan_dev_params_update( void )
 {
-
-
-
 	MibRequestConfirm_t mibReq;
 
 	mibReq.Type = MIB_CHANNELS_DEFAULT_MASK;
@@ -481,11 +479,17 @@ void LoRaWanClass::init(DeviceClass_t lorawanClass,LoRaMacRegion_t region)
 	debug_printf("LoRaWAN ");
 	switch(region)
 	{
-		case LORAMAC_REGION_AS923_AS1:
-			debug_printf("AS923(AS1:922.0-923.4MHz)");
+		case LORAMAC_REGION_AS923:
+			debug_printf("AS923(922.0-923.4MHz)");
 			break;
-		case LORAMAC_REGION_AS923_AS2:
-			debug_printf("AS923(AS2:923.2-924.6MHz)");
+		case LORAMAC_REGION_AS923_2:
+			debug_printf("AS923_2(921.4-922.8MHz)");
+			break;
+		case LORAMAC_REGION_AS923_3:
+			debug_printf("AS923_3(916.6-918.0MHz)");
+			break;
+		case LORAMAC_REGION_AS923_4:
+			debug_printf("AS923_4(917.3-918.7MHz)");
 			break;
 		case LORAMAC_REGION_AU915:
 			debug_printf("AU915");
@@ -519,8 +523,7 @@ void LoRaWanClass::init(DeviceClass_t lorawanClass,LoRaMacRegion_t region)
 	}
 	debug_printf(" Class %X start!\r\n\r\n",loraWanClass+10);
 
-	if(region == LORAMAC_REGION_AS923_AS1 || region == LORAMAC_REGION_AS923_AS2)
-		region = LORAMAC_REGION_AS923;
+
 	MibRequestConfirm_t mibReq;
 
 	LoRaMacPrimitive.MacMcpsConfirm = McpsConfirm;
@@ -563,40 +566,21 @@ void LoRaWanClass::init(DeviceClass_t lorawanClass,LoRaMacRegion_t region)
 	LoRaMacChannelAdd( 6, ( ChannelParams_t )EU868_LC7 );
 	LoRaMacChannelAdd( 7, ( ChannelParams_t )EU868_LC8 );
 	}
-	else if(loraWanRegion==LORAMAC_REGION_EU433)
-	{
-	LoRaMacChannelAdd( 3, ( ChannelParams_t )EU433_LC4 ); 
-	LoRaMacChannelAdd( 4, ( ChannelParams_t )EU433_LC5 );
-	LoRaMacChannelAdd( 5, ( ChannelParams_t )EU433_LC6 );
-	LoRaMacChannelAdd( 6, ( ChannelParams_t )EU433_LC7 );
-	LoRaMacChannelAdd( 7, ( ChannelParams_t )EU433_LC8 );
-	}
-	else if(loraWanRegion==LORAMAC_REGION_KR920)
-	{
-	LoRaMacChannelAdd( 3, ( ChannelParams_t )KR920_LC4 );
-	LoRaMacChannelAdd( 4, ( ChannelParams_t )KR920_LC5 );
-	LoRaMacChannelAdd( 5, ( ChannelParams_t )KR920_LC6 );
-	LoRaMacChannelAdd( 6, ( ChannelParams_t )KR920_LC7 );
-	}
-	else if(loraWanRegion==LORAMAC_REGION_AS923_AS1)
-	{
-	LoRaMacChannelAdd( 2, ( ChannelParams_t )AS923_1_LC3 );
-	LoRaMacChannelAdd( 3, ( ChannelParams_t )AS923_1_LC4 );
-	LoRaMacChannelAdd( 4, ( ChannelParams_t )AS923_1_LC5 );
-	LoRaMacChannelAdd( 5, ( ChannelParams_t )AS923_1_LC6 );
-	LoRaMacChannelAdd( 6, ( ChannelParams_t )AS923_1_LC7 );
-	LoRaMacChannelAdd( 7, ( ChannelParams_t )AS923_1_LC8 );
-	}
-	else if(loraWanRegion==LORAMAC_REGION_AS923_AS2)
-	{
-	LoRaMacChannelAdd( 2, ( ChannelParams_t )AS923_2_LC3 );
-	LoRaMacChannelAdd( 3, ( ChannelParams_t )AS923_2_LC4 );
-	LoRaMacChannelAdd( 4, ( ChannelParams_t )AS923_2_LC5 );
-	LoRaMacChannelAdd( 5, ( ChannelParams_t )AS923_2_LC6 );
-	LoRaMacChannelAdd( 6, ( ChannelParams_t )AS923_2_LC7 );
-	LoRaMacChannelAdd( 7, ( ChannelParams_t )AS923_2_LC8 );
-	}
-
+//	else if(loraWanRegion==LORAMAC_REGION_EU433)
+//	{
+//	LoRaMacChannelAdd( 3, ( ChannelParams_t )EU433_LC4 ); 
+//	LoRaMacChannelAdd( 4, ( ChannelParams_t )EU433_LC5 );
+//	LoRaMacChannelAdd( 5, ( ChannelParams_t )EU433_LC6 );
+//	LoRaMacChannelAdd( 6, ( ChannelParams_t )EU433_LC7 );
+//	LoRaMacChannelAdd( 7, ( ChannelParams_t )EU433_LC8 );
+//	}
+//	else if(loraWanRegion==LORAMAC_REGION_KR920)
+//	{
+//	LoRaMacChannelAdd( 3, ( ChannelParams_t )KR920_LC4 );
+//	LoRaMacChannelAdd( 4, ( ChannelParams_t )KR920_LC5 );
+//	LoRaMacChannelAdd( 5, ( ChannelParams_t )KR920_LC6 );
+//	LoRaMacChannelAdd( 6, ( ChannelParams_t )KR920_LC7 );
+//	}
 }
 
 

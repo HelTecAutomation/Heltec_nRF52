@@ -511,7 +511,7 @@ int8_t powerConversion(int8_t loraOutputPower,uint16_t *gain, uint16_t gain_num)
 void SX126xSetTxParams( int8_t power, RadioRampTimes_t rampTime )
 {
     uint8_t buf[2];
-
+    SX126xWriteRegister(0x08D8, SX126xReadRegister(0x08D8) | (0x0F << 1));
     if( SX126xGetPaSelect( 0 ) == SX1261 )
     {
         if( power == 15 )

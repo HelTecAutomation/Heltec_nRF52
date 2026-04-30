@@ -41,18 +41,27 @@ Maintainer: Miguel Luis ( Semtech ), Gregory Cristian ( Semtech ) and Daniel Jae
 #define REGION_CN470
 #define REGION_EU433
 #define REGION_EU868
-#define REGION_US915
 #define REGION_KR920
 #define REGION_IN865
+#define REGION_AS923_2
+#define REGION_AS923_3
+#define REGION_AS923_4
+
+
 
 // Setup regions
-#if defined (REGION_AS923) || defined( REGION_AS923_AS1) || defined( REGION_AS923_AS2)
+#if defined (REGION_AS923) || defined( REGION_AS923_2) || defined( REGION_AS923_3) || defined( REGION_AS923_4)
 #include "RegionAS923.h"
-#define AS923_CASE                                 case LORAMAC_REGION_AS923:
+#define AS923_CASE     \
+													   case LORAMAC_REGION_AS923:  \
+													   case LORAMAC_REGION_AS923_2: \
+													   case LORAMAC_REGION_AS923_3: \
+													   case LORAMAC_REGION_AS923_4:
+
 #define AS923_IS_ACTIVE( )                         AS923_CASE { return true; }
 #define AS923_GET_PHY_PARAM( )                     AS923_CASE { return RegionAS923GetPhyParam( getPhy ); }
 #define AS923_SET_BAND_TX_DONE( )                  AS923_CASE { RegionAS923SetBandTxDone( txDone ); break; }
-#define AS923_INIT_DEFAULTS( )                     AS923_CASE { RegionAS923InitDefaults( type ); break; }
+#define AS923_INIT_DEFAULTS( )                     case LORAMAC_REGION_AS923: { RegionAS923InitDefaults( type ); break; }
 #define AS923_VERIFY( )                            AS923_CASE { return RegionAS923Verify( verify, phyAttribute ); }
 #define AS923_APPLY_CF_LIST( )                     AS923_CASE { RegionAS923ApplyCFList( applyCFList ); break; }
 #define AS923_CHAN_MASK_SET( )                     AS923_CASE { return RegionAS923ChanMaskSet( chanMaskSet ); }
@@ -73,6 +82,9 @@ Maintainer: Miguel Luis ( Semtech ), Gregory Cristian ( Semtech ) and Daniel Jae
 #define AS923_SET_CONTINUOUS_WAVE( )               AS923_CASE { RegionAS923SetContinuousWave( continuousWave ); break; }
 #define AS923_APPLY_DR_OFFSET( )                   AS923_CASE { return RegionAS923ApplyDrOffset( downlinkDwellTime, dr, drOffset ); }
 #define AS923_RX_BEACON_SETUP( )                   AS923_CASE { RegionAS923RxBeaconSetup( rxBeaconSetup, outDr ); }
+#define AS923_2_INIT_DEFAULTS( )                     case LORAMAC_REGION_AS923_2: { RegionAS923_2InitDefaults( type ); break; }
+#define AS923_3_INIT_DEFAULTS( )                     case LORAMAC_REGION_AS923_3: { RegionAS923_3InitDefaults( type ); break; }
+#define AS923_4_INIT_DEFAULTS( )                     case LORAMAC_REGION_AS923_4: { RegionAS923_4InitDefaults( type ); break; }
 #else
 #define AS923_IS_ACTIVE( )
 #define AS923_GET_PHY_PARAM( )
@@ -665,6 +677,9 @@ void RegionInitDefaults( LoRaMacRegion_t region, InitType_t type )
         IN865_INIT_DEFAULTS( );
         US915_INIT_DEFAULTS( );
         US915_HYBRID_INIT_DEFAULTS( );
+        AS923_2_INIT_DEFAULTS( );
+        AS923_3_INIT_DEFAULTS( );
+        AS923_4_INIT_DEFAULTS( );
         default:
         {
             break;

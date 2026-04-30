@@ -25,11 +25,36 @@ uint8_t nwkSKey[] = { 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88
 uint8_t appSKey[] = { 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88 };
 uint32_t devAddr = (uint32_t)0x007e6ae4;
 
-/*LoraWan channelsmask, default channels 0-7*/
-uint16_t userChannelsMask[6] = { 0x00FF,0x0000,0x0000,0x0000,0x0000,0x0000 };
+/*LoraWan region, supportted region:
+* US915, support subband: 0-7
+* AU915, support subband: 0-7
+* CN470, support subband: 0-11
+* EU433, support subband: 0
+* EU868, support subband: 0
+* IN865, support subband: 0
+* KR920, support subband: 0
+* AS923    (922.0-923.4MHz), support subband: 0
+* AS923_2  (921.4-922.8MHz), support subband: 0
+* AS923_3  (916.6-918.0MHz), support subband: 0
+* AS923_4  (917.3-918.7MHz), support subband: 0
+*/
+LoRaMacRegion_t loraWanRegion = LORAMAC_REGION_US915;
 
-/*LoraWan region, select in arduino IDE tools*/
-LoRaMacRegion_t loraWanRegion = LORAMAC_REGION_CN470;
+/*LoraWan channelsmask
+* subband 0(channels 0-7):{ 0x00FF,0x0000,0x0000,0x0000,0x0000,0x0000 };
+* subband 1(channels 0-7):{ 0xFF00,0x0000,0x0000,0x0000,0x0000,0x0000 };
+* subband 2(channels 0-7):{ 0x0000,0x00FF,0x0000,0x0000,0x0000,0x0000 };
+* subband 3(channels 0-7):{ 0x0000,0xFF00,0x0000,0x0000,0x0000,0x0000 };
+* subband 4(channels 0-7):{ 0x0000,0x0000,0x00FF,0x0000,0x0000,0x0000 };
+* subband 5(channels 0-7):{ 0x0000,0x0000,0xFF00,0x0000,0x0000,0x0000 };
+* subband 6(channels 0-7):{ 0x0000,0x0000,0x0000,0x00FF,0x0000,0x0000 };
+* subband 7(channels 0-7):{ 0x0000,0x0000,0x0000,0xFF00,0x0000,0x0000 };
+* subband 8(channels 0-7):{ 0x0000,0x0000,0x0000,0x0000,0x00FF,0x0000 };
+* subband 9(channels 0-7):{ 0x0000,0x0000,0x0000,0x0000,0xFF00,0x0000 };
+* subband 10(channels 0-7):{ 0x0000,0x0000,0x0000,0x0000,0x0000,0x00FF };
+* subband 11(channels 0-7):{ 0x0000,0x0000,0x0000,0x0000,0x0000,0xFF00 };
+*/
+uint16_t userChannelsMask[6] = { 0x00FF,0x0000,0x0000,0x0000,0x0000,0x0000 };
 
 /*LoraWan Class, Class A and Class C are supported*/
 DeviceClass_t loraWanClass = CLASS_A;
@@ -37,8 +62,11 @@ DeviceClass_t loraWanClass = CLASS_A;
 /*the application data transmission duty cycle.  value in [ms].*/
 uint32_t appTxDutyCycle = 15000;
 
-/*OTAA or ABP*/
-bool overTheAirActivation = 1;
+/*OTAA or ABP
+* OTAA : true
+* ABP  : false
+*/
+bool overTheAirActivation = true;
 
 /*ADR enable*/
 bool loraWanAdr = true;

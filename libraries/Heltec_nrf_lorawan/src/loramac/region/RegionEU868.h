@@ -139,7 +139,7 @@
 /*!
  * Enabled or disabled the duty cycle
  */
-#define EU868_DUTY_CYCLE_ENABLED                    1
+#define EU868_DUTY_CYCLE_ENABLED                    0
 
 /*!
  * Maximum RX window duration

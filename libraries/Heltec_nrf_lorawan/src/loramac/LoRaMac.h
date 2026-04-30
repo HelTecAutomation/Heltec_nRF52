@@ -2127,7 +2127,7 @@ typedef enum eLoRaMacStatus {
  */
 typedef enum eLoRaMacRegion_t {
     /*!
-     * AS band on 923MHz
+     * AS band on 922.0-923.4MHz
      */
     LORAMAC_REGION_AS923,
     /*!
@@ -2171,13 +2171,17 @@ typedef enum eLoRaMacRegion_t {
      */
     LORAMAC_REGION_AU915_SB2,
     /*!
-     * AS band on 922.0-923.4MHz
+     * AS band on 921.4-922.8MHz
      */
-    LORAMAC_REGION_AS923_AS1,
+    LORAMAC_REGION_AS923_2,
     /*!
-     * AS band on 923.2-924.6MHz
+     * AS band on 916.6-923.0MHz
      */
-    LORAMAC_REGION_AS923_AS2
+    LORAMAC_REGION_AS923_3,
+    /*!
+     * AS band on 917.3-918.7MHz
+     */
+    LORAMAC_REGION_AS923_4
 } LoRaMacRegion_t;
 
 /*!
