@@ -328,3 +328,62 @@ HT-n5262G.menu.lora_debug_port.serial1.build.lora_debug=1
 
 HT-n5262G.build.defines=-DLoraWan_RGB={build.rgb_enable} -DLORA_DEBUG_SERIAL_NUM={build.lora_debug} -DLORA_DEBUG_ENABLE={build.LoRa_debug} -DLORA_RX_LNA={build.LORA_RX_LNA} -DHT_N5262G
 HT-n5262G.build.debug_flags=-DCFG_DEBUG=0
+
+
+# -----------------------------------
+#HT-mesh-node-t1
+# -----------------------------------
+HT-mesh-node-t1.name=Mesh Node T1
+
+# VID/PID for Bootloader, Arduino & CircuitPython
+HT-mesh-node-t1.vid.0=0x239A
+HT-mesh-node-t1.pid.0=0x8071
+HT-mesh-node-t1.vid.1=0x239A
+HT-mesh-node-t1.pid.1=0x0071
+HT-mesh-node-t1.vid.2=0x239A
+HT-mesh-node-t1.pid.2=0x8072
+
+# Upload
+HT-mesh-node-t1.bootloader.tool=bootburn
+HT-mesh-node-t1.upload.tool=nrfutil
+HT-mesh-node-t1.upload.protocol=nrfutil
+HT-mesh-node-t1.upload.use_1200bps_touch=true
+HT-mesh-node-t1.upload.wait_for_upload_port=true
+HT-mesh-node-t1.upload.maximum_size=815104
+HT-mesh-node-t1.upload.maximum_data_size=237568
+
+# Build
+HT-mesh-node-t1.build.mcu=cortex-m4
+HT-mesh-node-t1.build.f_cpu=64000000
+HT-mesh-node-t1.build.board=HT_MESH_NODE_T1
+HT-mesh-node-t1.build.core=nRF5
+HT-mesh-node-t1.build.variant=HT-mesh-node-t1
+HT-mesh-node-t1.build.usb_manufacturer="Heltec"
+HT-mesh-node-t1.build.usb_product="Mesh Node T1"
+HT-mesh-node-t1.build.extra_flags=-DNRF52840_XXAA {build.flags.usb}
+HT-mesh-node-t1.build.ldscript=nrf52840_s140_v6.ld
+HT-mesh-node-t1.build.openocdscript=scripts/openocd/daplink_nrf52.cfg
+HT-mesh-node-t1.build.vid=0x239A
+HT-mesh-node-t1.build.pid=0x8071
+
+# Menu: SoftDevice
+HT-mesh-node-t1.menu.softdevice.s140v6=S140 6.1.1
+HT-mesh-node-t1.menu.softdevice.s140v6.build.sd_name=s140
+HT-mesh-node-t1.menu.softdevice.s140v6.build.sd_version=6.1.1
+HT-mesh-node-t1.menu.softdevice.s140v6.build.sd_fwid=0x00B6
+
+HT-mesh-node-t1.menu.RGB.disable=Disable
+HT-mesh-node-t1.menu.RGB.disable.build.rgb_enable=0
+
+HT-mesh-node-t1.menu.LoRa_debug.enable=Enable
+HT-mesh-node-t1.menu.LoRa_debug.enable.build.LoRa_debug=1
+HT-mesh-node-t1.menu.LoRa_debug.disable=Disable
+HT-mesh-node-t1.menu.LoRa_debug.disable.build.LoRa_debug=0
+
+HT-mesh-node-t1.menu.lora_debug_port.serial=Serial(USB CDC)
+HT-mesh-node-t1.menu.lora_debug_port.serial.build.lora_debug=0
+HT-mesh-node-t1.menu.lora_debug_port.serial1=Serial1(UART0)
+HT-mesh-node-t1.menu.lora_debug_port.serial1.build.lora_debug=1
+
+HT-mesh-node-t1.build.defines=-DLoraWan_RGB={build.rgb_enable} -DLORA_DEBUG_SERIAL_NUM={build.lora_debug} -DLORA_DEBUG_ENABLE={build.LoRa_debug} -DHELTEC_MESH_NODE_T1 -DUSE_TFTDISPLAY -DUSER_SETUP_LOADED -DST7735_DRIVER -DST7735_REDTAB160x80 -DTFT_SPI_PORT=SPI1 -DTFT_CS=ST7735_CS -DTFT_DC=ST7735_RS -DTFT_RST=ST7735_RESET -DTFT_BL=ST7735_BL -DTFT_BACKLIGHT_ON=LOW
+HT-mesh-node-t1.build.debug_flags=-DCFG_DEBUG=0
