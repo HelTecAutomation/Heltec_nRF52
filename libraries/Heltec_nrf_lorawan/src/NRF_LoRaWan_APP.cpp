@@ -3,7 +3,14 @@
 #include <SPI.h>
 
 
-#if(LoraWan_RGB==1)
+#if (LoraWan_RGB == 1) && defined(PIN_NEOPIXEL) && defined(NEOPIXEL_NUM) && \
+    defined(PIN_VEXT_CTL) && defined(VEXT_ENABLE) && (PIN_NEOPIXEL >= 0) && (NEOPIXEL_NUM > 0)
+#define LORAWAN_RGB_ENABLED 1
+#else
+#define LORAWAN_RGB_ENABLED 0
+#endif
+
+#if LORAWAN_RGB_ENABLED
 #include <Adafruit_NeoPixel.h>
 
 Adafruit_NeoPixel pixels(NEOPIXEL_NUM, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);
@@ -20,7 +27,7 @@ Adafruit_NeoPixel pixels(NEOPIXEL_NUM, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);
 #endif
 
 
-#if(LoraWan_RGB==1)
+#if LORAWAN_RGB_ENABLED
 void turnOnRGB(uint32_t color,uint32_t time)
 {
 	uint8_t red,green,blue;
