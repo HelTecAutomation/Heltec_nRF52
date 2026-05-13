@@ -1,12 +1,3 @@
-/*
- * by Aaron.Lee from HelTec AutoMation, ChengDu, China
- * 成都惠利特自动化科技有限公司
- * https://heltec.org
- *
- * this project also realess in GitHub:
- * https://github.com/HelTecAutomation/Heltec_ESP32
-*/
-
 #include <Adafruit_LittleFS.h>
 #include <InternalFileSystem.h>
 #include <bluefruit.h>
