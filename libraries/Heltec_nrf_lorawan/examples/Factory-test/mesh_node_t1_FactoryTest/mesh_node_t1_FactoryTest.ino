@@ -194,62 +194,23 @@ void interrupt_handle(void)
 	}
 }
 
-void VextON(void)
-{
-  pinMode(PIN_VEXT_CTL,OUTPUT);
-  digitalWrite(PIN_VEXT_CTL, HIGH);
-  
-}
-
-void VextOFF(void) //Vext default OFF
-{
-  pinMode(PIN_VEXT_CTL,OUTPUT);
-  digitalWrite(PIN_VEXT_CTL, LOW);
-}
-
-
 void enter_deepsleep(void)
 {
 	Radio.Sleep();
 	SPI.end();
 	pinMode(VGNSS_CTRL,OUTPUT);
 	digitalWrite(VGNSS_CTRL,HIGH);
-	Serial2.end();
+	Serial1.end();
 	Serial.end();
-	pinMode(PIN_LED1,OUTPUT);
-	digitalWrite(PIN_LED1,LOW);
-	VextOFF();
 	SPI1.end();
-	pinMode(LORA_PA_POWER,OUTPUT);
-	digitalWrite(LORA_PA_POWER,LOW);
+
 	pinMode(RADIO_DIO_1,ANALOG);
 	pinMode(RADIO_NSS,ANALOG);
 	pinMode(RADIO_RESET,ANALOG);
 	pinMode(RADIO_BUSY,ANALOG);
 
-	nrf_gpio_cfg_default(VEXT_ENABLE);
-    nrf_gpio_cfg_default(ST7735_CS);
-    nrf_gpio_cfg_default(ST7735_RS);
-    nrf_gpio_cfg_default(ST7735_SDA);
-    nrf_gpio_cfg_default(ST7735_SCK);
-    nrf_gpio_cfg_default(ST7735_RESET);
-    nrf_gpio_cfg_default(ST7735_BL);
-
-    nrf_gpio_cfg_default(PIN_LED1);
-
-    // nrf_gpio_cfg_default(LORA_PA_POWER);
-    pinMode(LORA_PA_POWER, OUTPUT);
-    digitalWrite(LORA_PA_POWER, LOW);
-
-    nrf_gpio_cfg_default(LORA_PA_CSD);
-    nrf_gpio_cfg_default(LORA_PA_CTX);
-
+    pinMode(PIN_BAT_ADC_CTL, OUTPUT);
     digitalWrite(PIN_BAT_ADC_CTL, LOW);
-
-    nrf_gpio_cfg_default(RADIO_NSS);
-    nrf_gpio_cfg_default(RADIO_DIO_1);
-    nrf_gpio_cfg_default(RADIO_BUSY);
-    nrf_gpio_cfg_default(RADIO_RESET);
 
     nrf_gpio_cfg_default(PIN_SPI_MISO);
     nrf_gpio_cfg_default(PIN_SPI_MOSI);
@@ -260,6 +221,39 @@ void enter_deepsleep(void)
     nrf_gpio_cfg_default(PIN_GPS_EN);
     nrf_gpio_cfg_default(GPS_TX_PIN);
     nrf_gpio_cfg_default(GPS_RX_PIN);
+
+
+    nrf_gpio_cfg_default(ST7735_CS);
+    nrf_gpio_cfg_default(ST7735_RS);
+    nrf_gpio_cfg_default(ST7735_SDA);
+    nrf_gpio_cfg_default(ST7735_SCK);
+    nrf_gpio_cfg_default(ST7735_RESET);
+    nrf_gpio_cfg_default(ST7735_BL);
+    nrf_gpio_cfg_default(VTFT_CTRL);
+
+    nrf_gpio_cfg_default(PIN_WIRE_SDA);
+    nrf_gpio_cfg_default(PIN_WIRE_SCL);
+
+    // nrf_gpio_cfg_default(SX126X_CS);
+    nrf_gpio_cfg_default(SX126X_DIO1);
+    nrf_gpio_cfg_default(SX126X_BUSY);
+    nrf_gpio_cfg_default(SX126X_RESET);
+
+    nrf_gpio_cfg_default(PIN_SPI1_MISO);
+    nrf_gpio_cfg_default(PIN_SPI1_MOSI);
+    nrf_gpio_cfg_default(PIN_SPI1_SCK);
+
+    nrf_gpio_cfg_default(PIN_BUZZER_VOLTAGE_MULTIPLIER_1);
+    nrf_gpio_cfg_default(PIN_BUZZER_VOLTAGE_MULTIPLIER_2);
+
+    pinMode(PIN_BUZZER, OUTPUT);
+    digitalWrite(PIN_BUZZER, LOW);
+
+    pinMode(PIN_SENSOR_EN, OUTPUT);
+    digitalWrite(PIN_SENSOR_EN, !PIN_SENSOR_EN_ACTIVE); // Turn off sensor power
+
+    pinMode(PIN_LED1, OUTPUT);
+    digitalWrite(PIN_LED1, HIGH);
 
 	// vTaskSuspend(checkUserkey1kHandle);
 	sd_power_system_off(); // Enter System OFF mode (this function will not return)
@@ -292,16 +286,16 @@ void lora_status_handle(void)
 		send_num += String(txNumber,DEC);
 		st7735.fillScreen(ST7735_BLACK);
 		delay(100);
-    st7735.setCursor(0, 0);
-    st7735.println(packet);
-    st7735.setCursor(0, 40);
-    st7735.println(packSize);
-    st7735.setCursor(0, 60);
-    st7735.println(send_num);
+		st7735.setCursor(0, 0);
+		st7735.println(packet);
+		st7735.setCursor(0, 40);
+		st7735.println(packSize);
+		st7735.setCursor(0, 60);
+		st7735.println(send_num);
 
 		if((rxNumber%2)==0)
 		{
-			digitalWrite(PIN_LED1, HIGH);  
+			digitalWrite(PIN_LED1, LOW);  
 		}
 	}
 	switch(state)
@@ -334,26 +328,26 @@ void gps_test(void)
 	uint32_t last_second=0;
 	pinMode(VGNSS_CTRL,OUTPUT);
 	digitalWrite(VGNSS_CTRL,LOW);
-	Serial2.begin(115200);    
+	Serial1.begin(115200);    
 	Serial.println("gps_test");
 	st7735.fillScreen(ST7735_BLACK);
 	delay(100);
-  st7735.setCursor(0, 0);
-  st7735.println("gps_test");
+	st7735.setCursor(0, 0);
+	st7735.println("gps_test");
 	while(1)
 	{
-		if(Serial2.available()>0)
+		if(Serial1.available()>0)
 		{
-			if(Serial2.peek()!='\n')
+			if(Serial1.peek()!='\n')
 			{
-				char c = Serial2.read();
+				char c = Serial1.read();
 				gps.encode(c);
 				Serial.write(c);
 			}
 			else
 			{
 				Serial.println();
-				Serial2.read();
+				Serial1.read();
 				st7735.fillScreen(ST7735_BLACK);
 				st7735.setCursor(0, 0);
 				st7735.println("gps_detected");
@@ -381,7 +375,7 @@ void gps_test(void)
 				{
 					last_second = gps.time.second();
 					delay(1000);
-					while(Serial2.read()>0);
+					while(Serial1.read()>0);
 				}
 				else
 				{
@@ -389,7 +383,7 @@ void gps_test(void)
 					clear_num++;
 					if(clear_num%5==0)
 					{
-						while(Serial2.read()>0);
+						while(Serial1.read()>0);
 					}
 				}
 			}
@@ -402,14 +396,13 @@ void setup()
 	Serial.begin(115200);
 	InternalFS.begin();
 	boardInit(LORA_DEBUG_ENABLE,LORA_DEBUG_SERIAL_NUM,115200);
-	VextON();
 	delay(100);
 	pinMode(PIN_TFT_VDD_CTL,OUTPUT);
 	pinMode(PIN_TFT_LEDA_CTL,OUTPUT);
 	digitalWrite(PIN_TFT_VDD_CTL,TFT_VDD_ENABLE);  
     digitalWrite(PIN_TFT_LEDA_CTL,TFT_LEDA_ENABLE);
 	st7735.initR(INITR_MINI160x80_PLUGIN);
-	st7735.setRotation(1);
+	st7735.setRotation(3);
 	st7735.setSPISpeed(40000000);
 	st7735.fillScreen(ST7735_BLACK);
 	st7735.setTextSize(1);//12*16
@@ -422,7 +415,7 @@ void setup()
 	interrupt_flag = false;
 
 	pinMode(PIN_LED1 ,OUTPUT);
-	digitalWrite(PIN_LED1, LOW);
+	digitalWrite(PIN_LED1, HIGH);
 	test_status = LORA_TEST_INIT;
 
 }

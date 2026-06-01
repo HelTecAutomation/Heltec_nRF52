@@ -62,6 +62,17 @@
 #define LORA_PA_CSD   (0+12)
 #define LORA_PA_CTX   (32+9)    // enable tx
 
+#elif defined(HELTEC_MESH_NODE_T1)
+
+#define RADIO_DIO_1    31
+#define RADIO_NSS      43
+#define RADIO_RESET    2
+#define RADIO_BUSY     29
+
+#define LORA_CLK       45
+#define LORA_MISO      3
+#define LORA_MOSI      46
+
 #else
 #define RADIO_DIO_1    20
 #define RADIO_NSS      24
