@@ -32,8 +32,9 @@
 #include <Wire.h>
 #include <bluefruit.h>
 #include "Arduino.h"
-#include "TinyGPS.h"
 #include "heltec_nrf_lorawan.h"
+#include "gps_test.h"
+ 
 typedef struct {
   float acc_g[3];
   float gyro_dps[3];
@@ -147,7 +148,6 @@ SFE_MMC5983MA mag;
 #define GYRO_SAT_AXIS_DPS 245.0f
 
 #define HARD_VERSION 2
-TinyGPSPlus GPS;
 
 #define LED 16
 #define LED_ON_VALUE LOW
@@ -1483,108 +1483,10 @@ void loop()
       digitalWrite(PIN_GPS_RESET, !GPS_RESET_MODE);
       delay(PERIPHERAL_WARMUP_MS);
       Serial1.begin(GPS_BAUDRATE);
+      initGsvCaptors();
       gps_start_time=millis();
     }
-    uint32_t starttime = millis();
-    while( (millis()-starttime) < 1000 )
-    {
-      while (Serial1.available() > 0)
-      {
-        uint8_t a=Serial1.read();
-        GPS.encode(a);
-      }
-    }
-
-    st7735.setTextSize(1);
-    st7735.fillScreen(ST7735_BLACK);
-
-    if(gps_get_time!=0)
-    {
-      if(gps_get_time<90)
-      {
-        st7735.setTextColor(ST7735_GREEN);
-      }
-      else if(gps_get_time<180)
-      {
-        st7735.setTextColor(ST7735_YELLOW);
-      }
-      else
-      {
-        st7735.setTextColor(ST7735_RED);
-      }
-      st7735.setTextSize(1);
-      st7735.setCursor(120,66);
-      st7735.println(String(gps_get_time));
-      st7735.setTextSize(1);
-    }
-    else
-    {
-      uint32_t t=millis()-gps_start_time;
-      st7735.setTextSize(1);
-      st7735.setCursor(120,66);
-      st7735.println(String(t/1000));
-      st7735.setTextSize(1);
-    }
-
-    if( GPS.location.age() < 1000 )
-    {
-      pinMode(LED,OUTPUT);
-      digitalWrite(LED, LED_ON_VALUE);  
-      st7735.setTextColor(ST7735_GREEN);
-      st7735.setCursor(150,0);
-      st7735.println("A");
-      if(first_get_location)
-      {
-          first_get_location=false;
-          gps_get_time=(millis()-gps_start_time)/1000;
-      }
-    }
-    else
-    {
-      st7735.setCursor(150,0);
-      st7735.setTextColor(ST7735_WHITE);
-      st7735.println("V");
-      pinMode(LED,OUTPUT);
-      digitalWrite(LED, !LED_ON_VALUE);  
-    }
-
-    
-    char str[30];
-    int index = sprintf(str,"%02d-%02d-%02d",GPS.date.year(),GPS.date.day(),GPS.date.month());
-    str[index] = 0;
-    st7735.setCursor(0,0);
-    st7735.println(str);
-
-    index = sprintf(str,"%02d:%02d:%02d",GPS.time.hour(),GPS.time.minute(),GPS.time.second(),GPS.time.centisecond());
-    str[index] = 0;
-    st7735.setCursor(80,0);
-    st7735.println(str);
-
-
-    index = sprintf(str,"lat :  %d.%d",(int)GPS.location.lat(),fracPart(GPS.location.lat(),4));
-    str[index] = 0;
-    st7735.setCursor(0,18);
-    st7735.println(str);
-
-    index = sprintf(str,"lon : %d.%d",(int)GPS.location.lng(),fracPart(GPS.location.lng(),4));
-    str[index] = 0;
-    st7735.setCursor(0,30);
-    st7735.println(str);
-
-    index = sprintf(str,"alt: %d.%d",(int)GPS.altitude.meters(),fracPart(GPS.altitude.meters(),2));
-    str[index] = 0;
-    st7735.setCursor(0,42);
-    st7735.println(str);
-
-    index = sprintf(str,"hdop: %d.%d",(int)GPS.hdop.hdop(),fracPart(GPS.hdop.hdop(),2));
-    str[index] = 0;
-    st7735.setCursor(0,54);
-    st7735.println(str);
-
-    index = sprintf(str,"speed: %d.%d km/h",(int)GPS.speed.kmph(),fracPart(GPS.speed.kmph(),3));
-    str[index] = 0;
-    st7735.setCursor(0,66);
-    st7735.println(str);
+    gps_test();
     return;
   }
 
