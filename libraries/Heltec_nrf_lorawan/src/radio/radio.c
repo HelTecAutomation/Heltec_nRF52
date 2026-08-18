@@ -878,6 +878,18 @@ uint32_t RadioTimeOnAir( RadioModems_t modem, uint8_t pktLen )
     return airTime;
 }
 extern bool lora_txing;;
+#if defined(USE_KCT8103L_PA_ONLY)
+static void enableKCT8103LPaOnlyPower(void)
+{
+    bool wasOff = digitalRead(LORA_KCT8103L_EN) != HIGH;
+    pinMode(LORA_KCT8103L_EN, OUTPUT);
+    digitalWrite(LORA_KCT8103L_EN, HIGH);
+    if (wasOff) {
+        delay(5);
+    }
+}
+#endif
+
 void RadioSend( uint8_t *buffer, uint8_t size )
 {
 #if defined(USE_GC1109_PA)
@@ -904,6 +916,12 @@ void RadioSend( uint8_t *buffer, uint8_t size )
     pinMode(LORA_PA_CTX,OUTPUT);
 	digitalWrite(LORA_PA_CTX,HIGH);
     delay(2);
+#endif
+
+#if defined(USE_KCT8103L_PA_ONLY)
+    enableKCT8103LPaOnlyPower();
+    pinMode(LORA_KCT8103L_TX_RX, OUTPUT);
+    digitalWrite(LORA_KCT8103L_TX_RX, HIGH);
 #endif
 
     SX126xSetDioIrqParams( IRQ_TX_DONE | IRQ_RX_TX_TIMEOUT,
@@ -938,6 +956,10 @@ void RadioSleep( void )
 	digitalWrite(LORA_PA_CSD,LOW);
     delay(1);
 #endif
+#if defined(USE_KCT8103L_PA_ONLY)
+    pinMode(LORA_KCT8103L_EN, OUTPUT);
+    digitalWrite(LORA_KCT8103L_EN, LOW);
+#endif
     SleepParams_t params = { 0 };
 
     params.Fields.WarmStart = 1;
@@ -969,6 +991,11 @@ void RadioRx( uint32_t timeout )
     pinMode(LORA_PA_CTX,OUTPUT);
     digitalWrite(LORA_PA_CTX,LORA_RX_LNA);
     delay(1);
+#endif
+#if defined(USE_KCT8103L_PA_ONLY)
+    enableKCT8103LPaOnlyPower();
+    pinMode(LORA_KCT8103L_TX_RX, OUTPUT);
+    digitalWrite(LORA_KCT8103L_TX_RX, LOW);
 #endif
     SX126xSetDioIrqParams( IRQ_RX_DONE | IRQ_CRC_ERROR| IRQ_RX_TX_TIMEOUT,
                            IRQ_RX_DONE | IRQ_CRC_ERROR| IRQ_RX_TX_TIMEOUT,
@@ -1011,6 +1038,11 @@ void RadioRxBoosted( uint32_t timeout )
     digitalWrite(LORA_PA_CTX,LORA_RX_LNA);
     delay(1);
 #endif
+#if defined(USE_KCT8103L_PA_ONLY)
+    enableKCT8103LPaOnlyPower();
+    pinMode(LORA_KCT8103L_TX_RX, OUTPUT);
+    digitalWrite(LORA_KCT8103L_TX_RX, LOW);
+#endif
 
     SX126xSetDioIrqParams( IRQ_RX_DONE,
                            IRQ_RX_DONE,
@@ -1050,6 +1082,11 @@ void RadioSetRxDutyCycle( uint32_t rxTime, uint32_t sleepTime )
     pinMode(LORA_PA_CTX,OUTPUT);
     digitalWrite(LORA_PA_CTX,LORA_RX_LNA);
     delay(1);
+#endif
+#if defined(USE_KCT8103L_PA_ONLY)
+    enableKCT8103LPaOnlyPower();
+    pinMode(LORA_KCT8103L_TX_RX, OUTPUT);
+    digitalWrite(LORA_KCT8103L_TX_RX, LOW);
 #endif
     SX126xSetRxDutyCycle( rxTime, sleepTime );
 }
@@ -1117,6 +1154,12 @@ void RadioSetTxContinuousWave( uint32_t freq, int8_t power, uint16_t time )
     pinMode(LORA_PA_CTX,OUTPUT);
 	digitalWrite(LORA_PA_CTX,HIGH);
     delay(2);
+#endif
+
+#if defined(USE_KCT8103L_PA_ONLY)
+    enableKCT8103LPaOnlyPower();
+    pinMode(LORA_KCT8103L_TX_RX, OUTPUT);
+    digitalWrite(LORA_KCT8103L_TX_RX, HIGH);
 #endif
 
     SX126xSetRfFrequency( freq );

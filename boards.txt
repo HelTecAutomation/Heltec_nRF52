@@ -387,3 +387,177 @@ HT-mesh-node-t1.menu.lora_debug_port.serial1.build.lora_debug=1
 
 HT-mesh-node-t1.build.defines=-DLoraWan_RGB={build.rgb_enable} -DLORA_DEBUG_SERIAL_NUM={build.lora_debug} -DLORA_DEBUG_ENABLE={build.LoRa_debug} -DHELTEC_MESH_NODE_T1 -DUSE_TFTDISPLAY -DUSER_SETUP_LOADED -DST7735_DRIVER -DST7735_REDTAB160x80 -DTFT_SPI_PORT=SPI1 -DTFT_CS=ST7735_CS -DTFT_DC=ST7735_RS -DTFT_RST=ST7735_RESET -DTFT_BL=ST7735_BL -DTFT_BACKLIGHT_ON=LOW
 HT-mesh-node-t1.build.debug_flags=-DCFG_DEBUG=0
+
+# -----------------------------------
+#HT-mesh-pocket-v2
+# -----------------------------------
+HT-mesh-pocket-v2.name=Mesh Pocket V2
+
+# VID/PID for Bootloader, Arduino & CircuitPython
+HT-mesh-pocket-v2.vid.0=0x239A
+HT-mesh-pocket-v2.pid.0=0x8071
+HT-mesh-pocket-v2.vid.1=0x239A
+HT-mesh-pocket-v2.pid.1=0x0071
+HT-mesh-pocket-v2.vid.2=0x239A
+HT-mesh-pocket-v2.pid.2=0x8072
+
+# Upload
+HT-mesh-pocket-v2.bootloader.tool=bootburn
+HT-mesh-pocket-v2.upload.tool=nrfutil
+HT-mesh-pocket-v2.upload.protocol=nrfutil
+HT-mesh-pocket-v2.upload.use_1200bps_touch=true
+HT-mesh-pocket-v2.upload.wait_for_upload_port=true
+HT-mesh-pocket-v2.upload.maximum_size=815104
+HT-mesh-pocket-v2.upload.maximum_data_size=237568
+
+# Build
+HT-mesh-pocket-v2.build.mcu=cortex-m4
+HT-mesh-pocket-v2.build.f_cpu=64000000
+HT-mesh-pocket-v2.build.board=HT_MESH_POCKET_V2
+HT-mesh-pocket-v2.build.core=nRF5
+HT-mesh-pocket-v2.build.variant=HT-mesh-pocket-v2
+HT-mesh-pocket-v2.build.usb_manufacturer="Heltec"
+HT-mesh-pocket-v2.build.usb_product="Mesh Pocket V2"
+HT-mesh-pocket-v2.build.extra_flags=-DNRF52840_XXAA {build.flags.usb}
+HT-mesh-pocket-v2.build.ldscript=nrf52840_s140_v6.ld
+HT-mesh-pocket-v2.build.openocdscript=scripts/openocd/daplink_nrf52.cfg
+HT-mesh-pocket-v2.build.vid=0x239A
+HT-mesh-pocket-v2.build.pid=0x8071
+
+# Menu: SoftDevice
+HT-mesh-pocket-v2.menu.softdevice.s140v6=S140 6.1.1
+HT-mesh-pocket-v2.menu.softdevice.s140v6.build.sd_name=s140
+HT-mesh-pocket-v2.menu.softdevice.s140v6.build.sd_version=6.1.1
+HT-mesh-pocket-v2.menu.softdevice.s140v6.build.sd_fwid=0x00B6
+
+HT-mesh-pocket-v2.menu.RGB.disable=Disable
+HT-mesh-pocket-v2.menu.RGB.disable.build.rgb_enable=0
+
+HT-mesh-pocket-v2.menu.LoRa_debug.enable=Enable
+HT-mesh-pocket-v2.menu.LoRa_debug.enable.build.LoRa_debug=1
+HT-mesh-pocket-v2.menu.LoRa_debug.disable=Disable
+HT-mesh-pocket-v2.menu.LoRa_debug.disable.build.LoRa_debug=0
+
+HT-mesh-pocket-v2.menu.lora_debug_port.serial=Serial(USB CDC)
+HT-mesh-pocket-v2.menu.lora_debug_port.serial.build.lora_debug=0
+HT-mesh-pocket-v2.menu.lora_debug_port.serial1=Serial1(UART0)
+HT-mesh-pocket-v2.menu.lora_debug_port.serial1.build.lora_debug=1
+
+HT-mesh-pocket-v2.build.defines=-DLoraWan_RGB={build.rgb_enable} -DLORA_DEBUG_SERIAL_NUM={build.lora_debug} -DLORA_DEBUG_ENABLE={build.LoRa_debug} -DHELTEC_MESH_POCKET_V2
+HT-mesh-pocket-v2.build.debug_flags=-DCFG_DEBUG=0
+
+# -----------------------------------
+#HT-mesh-tower-v2
+# -----------------------------------
+HT-mesh-tower-v2.name=Mesh Tower V2
+
+# VID/PID for Bootloader, Arduino & CircuitPython
+HT-mesh-tower-v2.vid.0=0x239A
+HT-mesh-tower-v2.pid.0=0x8071
+HT-mesh-tower-v2.vid.1=0x239A
+HT-mesh-tower-v2.pid.1=0x0071
+HT-mesh-tower-v2.vid.2=0x239A
+HT-mesh-tower-v2.pid.2=0x8072
+
+# Upload
+HT-mesh-tower-v2.bootloader.tool=bootburn
+HT-mesh-tower-v2.upload.tool=nrfutil
+HT-mesh-tower-v2.upload.protocol=nrfutil
+HT-mesh-tower-v2.upload.use_1200bps_touch=true
+HT-mesh-tower-v2.upload.wait_for_upload_port=true
+HT-mesh-tower-v2.upload.maximum_size=815104
+HT-mesh-tower-v2.upload.maximum_data_size=237568
+
+# Build
+HT-mesh-tower-v2.build.mcu=cortex-m4
+HT-mesh-tower-v2.build.f_cpu=64000000
+HT-mesh-tower-v2.build.board=HT_MESH_TOWER_V2
+HT-mesh-tower-v2.build.core=nRF5
+HT-mesh-tower-v2.build.variant=HT-mesh-tower-v2
+HT-mesh-tower-v2.build.usb_manufacturer="Heltec"
+HT-mesh-tower-v2.build.usb_product="Mesh Tower V2"
+HT-mesh-tower-v2.build.extra_flags=-DNRF52840_XXAA {build.flags.usb}
+HT-mesh-tower-v2.build.ldscript=nrf52840_s140_v6.ld
+HT-mesh-tower-v2.build.openocdscript=scripts/openocd/daplink_nrf52.cfg
+HT-mesh-tower-v2.build.vid=0x239A
+HT-mesh-tower-v2.build.pid=0x8071
+
+# Menu: SoftDevice
+HT-mesh-tower-v2.menu.softdevice.s140v6=S140 6.1.1
+HT-mesh-tower-v2.menu.softdevice.s140v6.build.sd_name=s140
+HT-mesh-tower-v2.menu.softdevice.s140v6.build.sd_version=6.1.1
+HT-mesh-tower-v2.menu.softdevice.s140v6.build.sd_fwid=0x00B6
+
+HT-mesh-tower-v2.menu.RGB.disable=Disable
+HT-mesh-tower-v2.menu.RGB.disable.build.rgb_enable=0
+
+HT-mesh-tower-v2.menu.LoRa_debug.enable=Enable
+HT-mesh-tower-v2.menu.LoRa_debug.enable.build.LoRa_debug=1
+HT-mesh-tower-v2.menu.LoRa_debug.disable=Disable
+HT-mesh-tower-v2.menu.LoRa_debug.disable.build.LoRa_debug=0
+
+HT-mesh-tower-v2.menu.lora_debug_port.serial=Serial(USB CDC)
+HT-mesh-tower-v2.menu.lora_debug_port.serial.build.lora_debug=0
+HT-mesh-tower-v2.menu.lora_debug_port.serial1=Serial1(UART0)
+HT-mesh-tower-v2.menu.lora_debug_port.serial1.build.lora_debug=1
+
+HT-mesh-tower-v2.build.defines=-DLoraWan_RGB={build.rgb_enable} -DLORA_DEBUG_SERIAL_NUM={build.lora_debug} -DLORA_DEBUG_ENABLE={build.LoRa_debug} -DHELTEC_MESH_TOWER_V2
+HT-mesh-tower-v2.build.debug_flags=-DCFG_DEBUG=0
+
+# -----------------------------------
+#heltec_rc52
+# -----------------------------------
+heltec_rc52.name=Heltec RC52
+
+# VID/PID for Bootloader, Arduino & CircuitPython
+heltec_rc52.vid.0=0x239A
+heltec_rc52.pid.0=0x8071
+heltec_rc52.vid.1=0x239A
+heltec_rc52.pid.1=0x0071
+heltec_rc52.vid.2=0x239A
+heltec_rc52.pid.2=0x8072
+
+# Upload
+heltec_rc52.bootloader.tool=bootburn
+heltec_rc52.upload.tool=nrfutil
+heltec_rc52.upload.protocol=nrfutil
+heltec_rc52.upload.use_1200bps_touch=true
+heltec_rc52.upload.wait_for_upload_port=true
+heltec_rc52.upload.maximum_size=815104
+heltec_rc52.upload.maximum_data_size=237568
+
+# Build
+heltec_rc52.build.mcu=cortex-m4
+heltec_rc52.build.f_cpu=64000000
+heltec_rc52.build.board=HELTEC_RC52
+heltec_rc52.build.core=nRF5
+heltec_rc52.build.variant=heltec_rc52
+heltec_rc52.build.usb_manufacturer="Heltec"
+heltec_rc52.build.usb_product="Heltec RC52"
+heltec_rc52.build.extra_flags=-DNRF52840_XXAA {build.flags.usb}
+heltec_rc52.build.ldscript=nrf52840_s140_v6.ld
+heltec_rc52.build.openocdscript=scripts/openocd/daplink_nrf52.cfg
+heltec_rc52.build.vid=0x239A
+heltec_rc52.build.pid=0x8071
+
+# Menu: SoftDevice
+heltec_rc52.menu.softdevice.s140v6=S140 6.1.1
+heltec_rc52.menu.softdevice.s140v6.build.sd_name=s140
+heltec_rc52.menu.softdevice.s140v6.build.sd_version=6.1.1
+heltec_rc52.menu.softdevice.s140v6.build.sd_fwid=0x00B6
+
+heltec_rc52.menu.RGB.disable=Disable
+heltec_rc52.menu.RGB.disable.build.rgb_enable=0
+
+heltec_rc52.menu.LoRa_debug.enable=Enable
+heltec_rc52.menu.LoRa_debug.enable.build.LoRa_debug=1
+heltec_rc52.menu.LoRa_debug.disable=Disable
+heltec_rc52.menu.LoRa_debug.disable.build.LoRa_debug=0
+
+heltec_rc52.menu.lora_debug_port.serial=Serial(USB CDC)
+heltec_rc52.menu.lora_debug_port.serial.build.lora_debug=0
+heltec_rc52.menu.lora_debug_port.serial1=Serial1(UART0)
+heltec_rc52.menu.lora_debug_port.serial1.build.lora_debug=1
+
+heltec_rc52.build.defines=-DLoraWan_RGB={build.rgb_enable} -DLORA_DEBUG_SERIAL_NUM={build.lora_debug} -DLORA_DEBUG_ENABLE={build.LoRa_debug} -DHELTEC_RC52
+heltec_rc52.build.debug_flags=-DCFG_DEBUG=0

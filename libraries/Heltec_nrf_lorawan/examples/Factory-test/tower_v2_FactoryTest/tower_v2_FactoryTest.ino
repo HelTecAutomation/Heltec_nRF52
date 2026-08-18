@@ -1,12 +1,3 @@
-/*
- * by Aaron.Lee from HelTec AutoMation, ChengDu, China
- * 成都惠利特自动化科技有限公司
- * https://heltec.org
- *
- * this project also realess in GitHub:
- * https://github.com/HelTecAutomation/Heltec_ESP32
-*/
-
 #include <Adafruit_LittleFS.h>
 #include <InternalFileSystem.h>
 #include <bluefruit.h>
@@ -14,10 +5,6 @@
 #include <SPI.h>
 #include "heltec_nrf_lorawan.h"
 #include "TinyGPS.h"
-#include <Adafruit_GFX.h>    // Core graphics library
-#include <Adafruit_ST7735.h> // Hardware-specific library for ST7735
-
-Adafruit_ST7735 st7735 = Adafruit_ST7735(&SPI1,PIN_TFT_CS, PIN_TFT_DC, PIN_TFT_RST);
 
 typedef enum 
 {
@@ -27,8 +14,6 @@ typedef enum
 	GPS_TEST,
 }test_status_t;
 
-TinyGPSPlus gps;
-#define VGNSS_CTRL PIN_GPS_EN
 test_status_t  test_status;
 bool resendflag=false;
 bool deepsleepflag=false;
@@ -153,12 +138,9 @@ void lora_init(void)
 									LORA_SYMBOL_TIMEOUT, LORA_FIX_LENGTH_PAYLOAD_ON,
 									0, true, 0, 0, LORA_IQ_INVERSION_ON, true );
 	state=STATE_TX;
-	st7735.fillScreen(ST7735_BLACK);
 	packet ="waiting lora data!";
-	st7735.setCursor(0, 10);
-	st7735.println(packet);
+	Serial.println(packet);
 }
-
 
 /********************************* lora  *********************************************/
 
@@ -176,19 +158,11 @@ void interrupt_handle(void)
 			if(rxNumber < 2)
 			{
 				delay(500);
-				if(digitalRead(PIN_BUTTON1)==0)
-				{
-					test_status = GPS_TEST;
-				}
-				else
-				{
-					resendflag=true;
-				}
+				resendflag=true;
 			}
 			else
 			{
 				test_status = DEEPSLEEP_TEST;
-				// deepsleepflag=true;
 			}
 		}
 	}
@@ -196,13 +170,13 @@ void interrupt_handle(void)
 
 void enter_deepsleep(void)
 {
+	Serial.println("entering deepsleep mode...");
+	delay(100);
 	Radio.Sleep();
 	SPI.end();
-	pinMode(VGNSS_CTRL,OUTPUT);
-	digitalWrite(VGNSS_CTRL,HIGH);
+
 	Serial1.end();
 	Serial.end();
-	SPI1.end();
 
 	pinMode(RADIO_DIO_1,ANALOG);
 	pinMode(RADIO_NSS,ANALOG);
@@ -216,21 +190,6 @@ void enter_deepsleep(void)
     nrf_gpio_cfg_default(PIN_SPI_MOSI);
     nrf_gpio_cfg_default(PIN_SPI_SCK);
 
-    nrf_gpio_cfg_default(PIN_GPS_PPS);
-    nrf_gpio_cfg_default(PIN_GPS_RESET);
-    nrf_gpio_cfg_default(PIN_GPS_EN);
-    nrf_gpio_cfg_default(GPS_TX_PIN);
-    nrf_gpio_cfg_default(GPS_RX_PIN);
-
-
-    nrf_gpio_cfg_default(ST7735_CS);
-    nrf_gpio_cfg_default(ST7735_RS);
-    nrf_gpio_cfg_default(ST7735_SDA);
-    nrf_gpio_cfg_default(ST7735_SCK);
-    nrf_gpio_cfg_default(ST7735_RESET);
-    nrf_gpio_cfg_default(ST7735_BL);
-    nrf_gpio_cfg_default(VTFT_CTRL);
-
     nrf_gpio_cfg_default(PIN_WIRE_SDA);
     nrf_gpio_cfg_default(PIN_WIRE_SCL);
 
@@ -239,21 +198,14 @@ void enter_deepsleep(void)
     nrf_gpio_cfg_default(SX126X_BUSY);
     nrf_gpio_cfg_default(SX126X_RESET);
 
-    nrf_gpio_cfg_default(PIN_SPI1_MISO);
-    nrf_gpio_cfg_default(PIN_SPI1_MOSI);
-    nrf_gpio_cfg_default(PIN_SPI1_SCK);
-
-    nrf_gpio_cfg_default(PIN_BUZZER_VOLTAGE_MULTIPLIER_1);
-    nrf_gpio_cfg_default(PIN_BUZZER_VOLTAGE_MULTIPLIER_2);
-
-    pinMode(PIN_BUZZER, OUTPUT);
-    digitalWrite(PIN_BUZZER, LOW);
-
-    pinMode(PIN_SENSOR_EN, OUTPUT);
-    digitalWrite(PIN_SENSOR_EN, !PIN_SENSOR_EN_ACTIVE); // Turn off sensor power
+    pinMode(PIN_GPS_EN, OUTPUT);
+    digitalWrite(PIN_GPS_EN, HIGH);
 
     pinMode(PIN_LED1, OUTPUT);
     digitalWrite(PIN_LED1, HIGH);
+
+    pinMode(LORA_KCT8103L_EN, OUTPUT);
+    digitalWrite(LORA_KCT8103L_EN, LOW);
 
 	// vTaskSuspend(checkUserkey1kHandle);
 	sd_power_system_off(); // Enter System OFF mode (this function will not return)
@@ -278,20 +230,10 @@ void lora_status_handle(void)
 			packet += rxpacket[i];
 			i++;
 		}
-		// packSize = "R_Size:";
-		// packSize += String(rxSize,DEC);
 		String packSize = "R_rssi:";
 		packSize += String(Rssi,DEC);
 		send_num = "send num:";
 		send_num += String(txNumber,DEC);
-		st7735.fillScreen(ST7735_BLACK);
-		delay(100);
-		st7735.setCursor(0, 0);
-		st7735.println(packet);
-		st7735.setCursor(0, 40);
-		st7735.println(packSize);
-		st7735.setCursor(0, 60);
-		st7735.println(send_num);
 
 		if((rxNumber%2)==0)
 		{
@@ -322,74 +264,6 @@ void lora_status_handle(void)
 	}
 }
 
-void gps_test(void)
-{
-	uint32_t clear_num = 0;
-	uint32_t last_second=0;
-	pinMode(VGNSS_CTRL,OUTPUT);
-	digitalWrite(VGNSS_CTRL,LOW);
-	Serial1.begin(115200);    
-	Serial.println("gps_test");
-	st7735.fillScreen(ST7735_BLACK);
-	delay(100);
-	st7735.setCursor(0, 0);
-	st7735.println("gps_test");
-	while(1)
-	{
-		if(Serial1.available()>0)
-		{
-			if(Serial1.peek()!='\n')
-			{
-				char c = Serial1.read();
-				gps.encode(c);
-				Serial.write(c);
-			}
-			else
-			{
-				Serial.println();
-				Serial1.read();
-				st7735.fillScreen(ST7735_BLACK);
-				st7735.setCursor(0, 0);
-				st7735.println("gps_detected");
-				if(gps.time.second()==0)
-				{
-					continue;
-				}
-				String time_str = (String)gps.time.hour() + ":" + (String)gps.time.minute() + ":" + (String)gps.time.second()+ ":"+(String)gps.time.centisecond();
-				st7735.setCursor(0,15);
-				st7735.println(time_str);
-				String latitude = "LAT: " + (String)gps.location.lat();
-				st7735.setCursor(0, 30);
-				st7735.println(latitude);
-				String longitude  = "LON: "+  (String)gps.location.lng();
-				st7735.setCursor(0, 45);
-				st7735.println(longitude);
-
-				Serial.printf(" %02d:%02d:%02d.%02d",gps.time.hour(),gps.time.minute(),gps.time.second(),gps.time.centisecond());
-				Serial.print("LAT: ");
-				Serial.print(gps.location.lat(),6);
-				Serial.print(", LON: ");
-				Serial.print(gps.location.lng(),6);
-				Serial.println();
-				if(last_second != gps.time.second())
-				{
-					last_second = gps.time.second();
-					delay(1000);
-					while(Serial1.read()>0);
-				}
-				else
-				{
-					delay(10);
-					clear_num++;
-					if(clear_num%5==0)
-					{
-						while(Serial1.read()>0);
-					}
-				}
-			}
-		}
-	}
-}
 
 void setup()
 {
@@ -397,17 +271,6 @@ void setup()
 	InternalFS.begin();
 	boardInit(LORA_DEBUG_ENABLE,LORA_DEBUG_SERIAL_NUM,115200);
 	delay(100);
-	pinMode(PIN_TFT_VDD_CTL,OUTPUT);
-	pinMode(PIN_TFT_LEDA_CTL,OUTPUT);
-	digitalWrite(PIN_TFT_VDD_CTL,TFT_VDD_ENABLE);  
-    digitalWrite(PIN_TFT_LEDA_CTL,TFT_LEDA_ENABLE);
-	st7735.initR(INITR_MINI160x80_PLUGIN);
-	st7735.setRotation(3);
-	st7735.setSPISpeed(40000000);
-	st7735.fillScreen(ST7735_BLACK);
-	st7735.setTextSize(1);//12*16
-	st7735.setTextWrap(false);
-  	st7735.invertDisplay(true);
 
 	attachInterrupt(PIN_BUTTON1,interrupt_GPIO0,FALLING);
 	resendflag=false;
@@ -417,7 +280,6 @@ void setup()
 	pinMode(PIN_LED1 ,OUTPUT);
 	digitalWrite(PIN_LED1, HIGH);
 	test_status = LORA_TEST_INIT;
-
 }
 
 void loop()
@@ -439,11 +301,6 @@ void loop()
 		case DEEPSLEEP_TEST:
 		{
 			enter_deepsleep();
-			break;
-		}
-		case GPS_TEST:
-		{
-			gps_test();
 			break;
 		}
 		default:

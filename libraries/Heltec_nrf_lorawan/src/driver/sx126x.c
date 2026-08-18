@@ -4,6 +4,7 @@
 #include "../driver/timer.h"
 #include "../driver/sx126x.h"
 #include "../driver/sx126x-board.h"
+#include "Arduino.h"
 
 /*!
  * \brief Radio registers definition
@@ -557,6 +558,23 @@ void SX126xSetTxParams( int8_t power, RadioRampTimes_t rampTime )
         power = powerConversion(power, (uint16_t*)gc1109_tx_gain, sizeof(gc1109_tx_gain)/sizeof(gc1109_tx_gain[0]));
 #elif defined(USE_KCT8103L_PA)
         power = powerConversion(power, (uint16_t*)kct8103l_tx_gain, sizeof(kct8103l_tx_gain)/sizeof(kct8103l_tx_gain[0]));
+#elif defined(USE_KCT8103L_PA_ONLY)
+        uint16_t tower_v2_tx_gain[] = {11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 10, 10, 10, 10, 10, 10, 10, 10, 10, 9, 8, 7};
+        pinMode(RF_PA_DETECT_PIN, INPUT);
+        bool high_power_pa = (digitalRead(RF_PA_DETECT_PIN) == RF_PA_HIGH_POWER_VALUE);
+        if(high_power_pa) {
+            power = powerConversion(power, (uint16_t*)tower_v2_tx_gain, sizeof(tower_v2_tx_gain)/sizeof(tower_v2_tx_gain[0]));
+        }
+        else {
+            if( power > 22 )
+            {
+                power = 22;
+            }
+            else if( power < -3 )
+            {
+                power = -3;
+            }
+        }
 #else
         if( power > 22 )
         {
