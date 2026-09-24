@@ -82,7 +82,7 @@ static const uint8_t A0 = PIN_A0;
  * TFT display connector pins
  */
 #define RADIOCORE_TFT_SCK  (0 + 30)
-#define RADIOCORE_TFT_MOSI (32 + 3)
+#define RADIOCORE_TFT_MOSI (32 + 2)
 #define RADIOCORE_TFT_CS   (32 + 5)
 #define RADIOCORE_TFT_DC   (0 + 28)
 #define RADIOCORE_TFT_RST  (0 + 10)
@@ -140,7 +140,7 @@ static const uint8_t MISO = PIN_SPI_MISO;
 static const uint8_t SCK  = PIN_SPI_SCK;
 
 // SPI1 for TFT. Display MISO is not wired; SPIClass still needs a valid pin.
-#define PIN_SPI1_MISO (0 + 12)
+#define PIN_SPI1_MISO (32 + 3)
 #define PIN_SPI1_MOSI RADIOCORE_TFT_MOSI
 #define PIN_SPI1_SCK  RADIOCORE_TFT_SCK
 

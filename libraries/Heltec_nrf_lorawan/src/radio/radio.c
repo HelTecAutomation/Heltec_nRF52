@@ -403,7 +403,7 @@ PacketStatus_t RadioPktStatus;
 uint8_t RadioRxPayload[255];
 
 bool IrqFired = false;
-
+bool timerirq = false;
 /*
  * SX126x DIO IRQ callback functions prototype
  */
@@ -1293,6 +1293,11 @@ void RadioIrqProcess( void )
 		IrqFired = true;
 	}
 */
+  if(timerirq)
+  {
+    timerirq=false;
+    TimerIrqHandler();
+  }
     if( IrqFired == true )
     {
 
